@@ -1,0 +1,38 @@
+.nav-link {
+    font-size: x-large;
+}
+.nav-item {
+    padding-left: 2vw;
+}
+.navbar-brand {
+    font-size: 36px;
+}
+#nav_bar {
+    background-color: navy;
+    margin-bottom: 28px;
+}
+.brand_cat_text {
+    padding: 100px;
+}
+.footer {
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+    z-index: 10;
+}
+#brand-form {
+    margin-bottom: 32px;
+}
+.input-text, .col-form-label {
+    display: inline-block !important;
+    white-space: nowrap;
+}
+.input-text {
+    margin-left: 6px;
+}
+.form-group {
+    display: flex;
+}
+option{
+    font-size: 14px;
+}
