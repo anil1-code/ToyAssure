@@ -25,7 +25,7 @@ public class ChannelDto {
         }
         ChannelPojo channelPojo = new ChannelPojo();
         channelPojo.setName(channelForm.getName());
-        channelPojo.setChannelType(channelForm.getChannelType());
+        channelPojo.setInvoiceType(channelForm.getChannelType());
         return channelService.add(channelPojo);
     }
 

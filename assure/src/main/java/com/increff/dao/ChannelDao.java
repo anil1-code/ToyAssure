@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 @Repository
 public class ChannelDao extends AbstractDao {
     private static final String selectByName = "select p from ChannelPojo p where name=:name";
+    private static final String selectChannelPojoById = "select p from ChannelPojo p where id=:id";
     private static final String selectByChannelAndGlobalSkuId = "select p from ChannelListingPojo p where channelId=:channelId and globalSkuId=:globalSkuId";
+    private static final String selectByClientChannelAndChannelSkuId = "select p from ChannelListingPojo p where clientId=:clientId and channelId=:channelId and channelSkuId=:channelSkuId";
 
     public ChannelPojo add(ChannelPojo channelPojo) {
         em().persist(channelPojo);
@@ -31,6 +33,20 @@ public class ChannelDao extends AbstractDao {
         TypedQuery<ChannelListingPojo> query = getQuery(selectByChannelAndGlobalSkuId, ChannelListingPojo.class);
         query.setParameter("channelId", channelId);
         query.setParameter("globalSkuId", globalSkuId);
+        return getSingle(query);
+    }
+
+    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, Long channelSkuId) {
+        TypedQuery<ChannelListingPojo> query = getQuery(selectByClientChannelAndChannelSkuId, ChannelListingPojo.class);
+        query.setParameter("clientId", clientId);
+        query.setParameter("channelId", channelId);
+        query.setParameter("channelSkuId", channelSkuId);
+        return getSingle(query);
+    }
+
+    public ChannelPojo getById(Long channelId) {
+        TypedQuery<ChannelPojo> query = getQuery(selectChannelPojoById, ChannelPojo.class);
+        query.setParameter("id", channelId);
         return getSingle(query);
     }
 }

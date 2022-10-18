@@ -1,9 +1,8 @@
 package com.increff.model.forms;
 
-import com.sun.istack.NotNull;
+import com.increff.util.UserType;
 import lombok.Getter;
 import lombok.Setter;
-import com.increff.util.UserType;
 
 @Getter
 @Setter

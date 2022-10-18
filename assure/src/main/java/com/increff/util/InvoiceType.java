@@ -1,6 +1,6 @@
 package com.increff.util;
 
-public enum ChannelType {
+public enum InvoiceType {
     SELF,
     CHANNEL
 }

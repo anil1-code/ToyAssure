@@ -1,6 +1,6 @@
 package com.increff.model.forms;
 
-import com.increff.util.ChannelType;
+import com.increff.util.InvoiceType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class ChannelForm {
     private String name;
-    private ChannelType channelType;
+    private InvoiceType channelType;
 }

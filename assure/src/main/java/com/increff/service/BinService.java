@@ -5,12 +5,14 @@ import com.increff.exception.ApiException;
 import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
 import com.increff.pojo.InventoryPojo;
+import com.increff.pojo.OrderItemPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BinService {
@@ -74,5 +76,33 @@ public class BinService {
             throw new ApiException(errorMsg.toString());
         }
         return addedPojoList;
+    }
+
+    @Transactional
+    public Long allocateBinSkus(OrderItemPojo orderItemPojo) { // returns the quantity allocated by this method call
+        List<BinSkuPojo> binSkuPojoList = binDao.getBinSkusByGlobalSkuIds(orderItemPojo.getGlobalSkuId());
+        Long totalAllocated = 0L; // total allocated by this method call only
+        for (BinSkuPojo binSkuPojo : binSkuPojoList) {
+            Long allocate = Math.min(orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity(), binSkuPojo.getQuantity());
+            binSkuPojo.setQuantity(binSkuPojo.getQuantity() - allocate);
+            orderItemPojo.setAllocatedQuantity(orderItemPojo.getAllocatedQuantity() + allocate);
+            totalAllocated += allocate;
+            if (Objects.equals(orderItemPojo.getOrderedQuantity(), orderItemPojo.getAllocatedQuantity())) break;
+        }
+        return totalAllocated;
+    }
+
+    @Transactional
+    public void allocateInventory(Long globalSkuId, Long allocated) {
+        InventoryPojo inventoryPojo = binDao.getInventoryPojoByGlobalSkuId(globalSkuId);
+        inventoryPojo.setAvailableQuantity(inventoryPojo.getAvailableQuantity() - allocated);
+        inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() + allocated);
+    }
+
+    @Transactional
+    public void fulfillInventory(Long globalSkuId, Long fulfill) {
+        InventoryPojo inventoryPojo = binDao.getInventoryPojoByGlobalSkuId(globalSkuId);
+        inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() - fulfill);
+        inventoryPojo.setFulfilledQuantity(inventoryPojo.getFulfilledQuantity() + fulfill);
     }
 }

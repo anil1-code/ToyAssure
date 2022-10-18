@@ -1,6 +1,5 @@
 package com.increff.pojo;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,22 +8,28 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "assure_products", uniqueConstraints = {@UniqueConstraint(columnNames = {"globalSkuId"}), @UniqueConstraint(columnNames = {"clientId", "clientSkuId"})})
+@Table(name = "assure_products", uniqueConstraints = {@UniqueConstraint(columnNames = {"client_id", "client_sku_id"})})
 public class ProductPojo extends AbstractPojo {
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "global_sku_id", nullable = false)
     private Long globalSkuId;
-    @NotNull
+
+    @Column(name = "client_sku_id", nullable = false)
     private String clientSkuId;
-    @NotNull
+
+    @Column(name = "client_id", nullable = false)
     private Long clientId;
-    @NotNull
+
+    @Column(name = "name", nullable = false)
     private String name;
-    @NotNull
+
+    @Column(name = "brand_id", nullable = false)
     private String brandId;
-    @NotNull
+
+    @Column(name = "mrp", nullable = false)
     private Double mrp;
-    @NotNull
+
+    @Column(name = "description", nullable = false)
     private String description;
 }

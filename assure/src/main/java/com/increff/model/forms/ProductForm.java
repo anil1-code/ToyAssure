@@ -1,6 +1,5 @@
 package com.increff.model.forms;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

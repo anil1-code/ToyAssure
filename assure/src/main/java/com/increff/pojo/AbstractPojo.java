@@ -5,10 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -18,12 +15,15 @@ public class AbstractPojo {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    protected Date createdOn;
+    @Column(name = "created_at", nullable = false)
+    protected Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    protected Date updatedOn;
+    @Column(name = "updated_at", nullable = false)
+    protected Date updatedAt;
 
     @Version
+    @Column(name = "version", nullable = false)
     protected Long version;
 }

@@ -1,6 +1,5 @@
 package com.increff.pojo;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +12,6 @@ import javax.persistence.*;
 public class BinPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
+    @Column(name = "id", nullable = false)
     private Long id;
 }

@@ -1,7 +1,6 @@
 package com.increff.pojo;
 
 import com.increff.util.UserType;
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +13,12 @@ import javax.persistence.*;
 public class UserPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
+    @Column(name = "id", nullable = false)
     private Long id;
-    @NotNull
+
+    @Column(name = "name", nullable = false)
     private String name;
-    @NotNull
+
+    @Column(name = "type", nullable = false)
     private UserType type;
 }

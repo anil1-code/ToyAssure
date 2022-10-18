@@ -1,8 +1,8 @@
 package com.increff.model.data;
 
+import com.increff.util.UserType;
 import lombok.Getter;
 import lombok.Setter;
-import com.increff.util.UserType;
 
 @Getter
 @Setter

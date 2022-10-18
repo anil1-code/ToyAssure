@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,16 @@ public class ChannelService {
             }
         }
         return addedPojoList;
+    }
+
+    public ChannelPojo getByName(String channelName) {
+        return channelDao.getByName(channelName);
+    }
+    public ChannelPojo getById(Long channelId) {
+        return channelDao.getById(channelId);
+    }
+
+    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, Long channelSkuId) {
+        return channelDao.getByClientChannelAndChannelSkuId(clientId, channelId, channelSkuId);
     }
 }

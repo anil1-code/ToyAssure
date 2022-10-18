@@ -1,6 +1,5 @@
 package com.increff.pojo;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,16 +8,19 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "assure_bin_skus", uniqueConstraints = {@UniqueConstraint(columnNames = {"binId", "globalSkuId"})})
+@Table(name = "assure_bin_skus", uniqueConstraints = {@UniqueConstraint(columnNames = {"bin_id", "global_sku_id"})})
 public class BinSkuPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
+    @Column(name = "id", nullable = false)
     private Long id;
-    @NotNull
+
+    @Column(name = "bin_id", nullable = false)
     private Long binId;
-    @NotNull
+
+    @Column(name = "global_sku_id", nullable = false)
     private Long globalSkuId;
-    @NotNull
+
+    @Column(name = "quantity", nullable = false)
     private Long quantity;
 }
