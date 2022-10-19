@@ -1,4 +1,4 @@
-package com.increff.pojo;
+package pojo;
 
 import lombok.Getter;
 import lombok.Setter;

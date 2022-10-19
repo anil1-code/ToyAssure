@@ -1,16 +1,14 @@
 package com.increff.controller;
 
 import com.increff.dto.OrderDto;
-import com.increff.exception.ApiException;
-import com.increff.model.forms.OrderForm;
-import com.increff.pojo.OrderPojo;
-import com.increff.util.OrderStatus;
+import exception.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import model.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
+import pojo.OrderPojo;
+import util.OrderStatus;
 
 @Api
 @RestController
@@ -33,9 +31,8 @@ public class OrderController {
 
     @ApiOperation(value = "generate invoice for the specified order")
     @RequestMapping(value = "/generate-invoice/{id}", method = RequestMethod.GET)
-    public void generateInvoice(@PathVariable Long id, HttpServletResponse httpServletResponse) throws ApiException {
-        orderDto.generateInvoice(id);
-        // TODO: 18/10/22 to be developed...
+    public byte[] generateInvoice(@PathVariable Long id) throws ApiException {
+        return orderDto.generateInvoice(id);
     }
 
 

@@ -1,8 +1,8 @@
 package com.increff.dao;
 
-import com.increff.pojo.OrderItemPojo;
-import com.increff.pojo.OrderPojo;
 import org.springframework.stereotype.Repository;
+import pojo.OrderItemPojo;
+import pojo.OrderPojo;
 
 import javax.persistence.TypedQuery;
 import java.util.List;

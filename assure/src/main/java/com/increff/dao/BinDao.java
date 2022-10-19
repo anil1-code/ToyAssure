@@ -5,7 +5,6 @@ import com.increff.pojo.BinSkuPojo;
 import com.increff.pojo.InventoryPojo;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

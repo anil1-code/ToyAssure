@@ -1,11 +1,11 @@
 package com.increff.dto;
 
 import com.increff.dto.helper.BinDtoHelper;
-import com.increff.exception.ApiException;
 import com.increff.model.forms.BinwiseInventoryForm;
 import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
 import com.increff.service.BinService;
+import exception.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,10 @@
 package com.increff.controller;
 
 import com.increff.dto.BinDto;
-import com.increff.exception.ApiException;
 import com.increff.model.forms.BinwiseInventoryForm;
 import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
+import exception.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

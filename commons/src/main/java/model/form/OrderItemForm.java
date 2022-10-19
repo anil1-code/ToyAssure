@@ -1,4 +1,4 @@
-package com.increff.model.forms;
+package model.form;
 
 import lombok.Getter;
 import lombok.Setter;

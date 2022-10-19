@@ -1,8 +1,8 @@
-package com.increff.pojo;
+package pojo;
 
-import com.increff.util.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
+import util.OrderStatus;
 
 import javax.persistence.*;
 

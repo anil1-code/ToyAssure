@@ -1,4 +1,4 @@
-package com.increff.model.data;
+package model.data;
 
 
 public class MessageData {

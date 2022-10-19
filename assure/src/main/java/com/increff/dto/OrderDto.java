@@ -1,14 +1,14 @@
 package com.increff.dto;
 
 import com.increff.dto.helper.OrderDtoHelper;
-import com.increff.exception.ApiException;
-import com.increff.model.forms.OrderForm;
-import com.increff.pojo.OrderItemPojo;
-import com.increff.pojo.OrderPojo;
 import com.increff.service.OrderService;
-import com.increff.util.OrderStatus;
+import exception.ApiException;
+import model.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pojo.OrderItemPojo;
+import pojo.OrderPojo;
+import util.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +39,10 @@ public class OrderDto {
         return orderService.fulfillOrder(id);
     }
 
-    public void generateInvoice(Long id) throws ApiException {
-        if(id == null || id <= 0) {
+    public byte[] generateInvoice(Long id) throws ApiException {
+        if (id == null || id <= 0) {
             throw new ApiException("Order ID can't be null or less than 1");
         }
-        orderService.generateInvoice(id);
+        return orderService.generateInvoice(id);
     }
 }

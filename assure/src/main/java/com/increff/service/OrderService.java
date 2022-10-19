@@ -1,15 +1,29 @@
 package com.increff.service;
 
 import com.increff.dao.OrderDao;
-import com.increff.exception.ApiException;
-import com.increff.pojo.*;
+import com.increff.pojo.ChannelListingPojo;
+import com.increff.pojo.ChannelPojo;
+import com.increff.pojo.ProductPojo;
+import com.increff.pojo.UserPojo;
+import com.increff.util.BasicDataUtil;
 import com.increff.util.InvoiceType;
-import com.increff.util.OrderStatus;
 import com.increff.util.UserType;
+import exception.ApiException;
+import model.data.InvoiceData;
+import model.data.OrderItemInvoiceData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import pojo.OrderItemPojo;
+import pojo.OrderPojo;
+import util.OrderStatus;
+import util.PDFMaker;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +37,13 @@ public class OrderService {
     private UserService userService;
     @Autowired
     private BinService binService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Value("channel.Uri")
+    private String channelBaseUri;
 
     public void validate(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<Long> channelSkuIds, String channelName) throws ApiException {
         ChannelPojo channelPojo = channelService.getByName(channelName);
@@ -124,7 +145,8 @@ public class OrderService {
         return orderPojo;
     }
 
-    public void generateInvoice(Long id) throws ApiException {
+    @Transactional(rollbackFor = ApiException.class)
+    public byte[] generateInvoice(Long id) throws ApiException {
         OrderPojo orderPojo = orderDao.getById(id);
         if (orderPojo == null) {
             throw new ApiException("No Order exists with the given ID: " + id);
@@ -133,11 +155,36 @@ public class OrderService {
             throw new ApiException("Order isn't fulfilled yet");
         }
         ChannelPojo channelPojo = channelService.getById(orderPojo.getChannelId());
+        double total = 0;
+        List<OrderItemPojo> orderItemPojoList = orderDao.getOrderItemsByOrderId(id);
+        List<OrderItemInvoiceData> orderItemInvoiceDataList = new ArrayList<>();
+        for (OrderItemPojo orderItemPojo : orderItemPojoList) {
+            double totalForThis = BasicDataUtil.roundOffDouble(orderItemPojo.getSellingPricePerUnit() * orderItemPojo.getFulfilledQuantity());
+            total += totalForThis;
+            ProductPojo productPojo = productService.getByGlobalSkuId(orderItemPojo.getGlobalSkuId());
+            OrderItemInvoiceData orderItemInvoiceData = new OrderItemInvoiceData();
+            orderItemInvoiceData.setSellingPricePerUnit(orderItemPojo.getSellingPricePerUnit());
+            orderItemInvoiceData.setSellingPrice(totalForThis);
+            orderItemInvoiceData.setQuantity(orderItemPojo.getFulfilledQuantity());
+            orderItemInvoiceData.setProductName(productPojo.getName());
+            orderItemInvoiceDataList.add(orderItemInvoiceData);
+        }
+        UserPojo clientPojo = userService.getById(orderPojo.getClientId());
+        UserPojo customerPojo = userService.getById(orderPojo.getCustomerId());
+        InvoiceData invoiceData = new InvoiceData();
+        invoiceData.setChannelName(channelPojo.getName());
+        invoiceData.setChannelOrderId(orderPojo.getChannelOrderId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss z");
+        invoiceData.setOrderedTime(orderPojo.getCreatedAt().format(formatter));
+        invoiceData.setTotal(BasicDataUtil.roundOffDouble(total));
+        invoiceData.setClientName(clientPojo.getName());
+        invoiceData.setCustomerName(customerPojo.getName());
+        invoiceData.setOrderItemDataList(orderItemInvoiceDataList);
         if (channelPojo.getInvoiceType() == InvoiceType.CHANNEL) {
             // call channel api for this
-            // TODO: 18/10/22 revisit after developing channel module
+            return restTemplate.postForObject(channelBaseUri + "/orders/generate-invoice", invoiceData, byte[].class);
         }
-        // generate here
-
+        invoiceData.setInvoiceTime(ZonedDateTime.now().format(formatter));
+        return PDFMaker.makePdf(invoiceData);
     }
 }

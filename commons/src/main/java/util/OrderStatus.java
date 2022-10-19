@@ -1,4 +1,4 @@
-package com.increff.util;
+package util;
 
 public enum OrderStatus {
     CREATED,

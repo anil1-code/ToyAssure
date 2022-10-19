@@ -1,11 +1,11 @@
 package com.increff.dto.helper;
 
-import com.increff.model.forms.OrderForm;
-import com.increff.model.forms.OrderItemForm;
-import com.increff.pojo.OrderItemPojo;
-import com.increff.pojo.OrderPojo;
 import com.increff.util.BasicDataUtil;
-import com.increff.util.OrderStatus;
+import model.form.OrderForm;
+import model.form.OrderItemForm;
+import pojo.OrderItemPojo;
+import pojo.OrderPojo;
+import util.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -110,4 +110,3 @@ public class OrderDtoHelper {
         return errorMsg.toString();
     }
 }
-// TODO: 18/10/22 selling price constraints

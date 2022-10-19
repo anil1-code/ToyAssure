@@ -3,6 +3,7 @@ package com.increff.pojo;
 import com.increff.util.UserType;
 import lombok.Getter;
 import lombok.Setter;
+import pojo.AbstractPojo;
 
 import javax.persistence.*;
 
