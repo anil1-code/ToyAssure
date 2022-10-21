@@ -23,8 +23,13 @@ public class BinService {
     private ProductService productService;
 
     @Transactional
-    public BinPojo add(BinPojo binPojo) {
-        return binDao.add(binPojo);
+    public List<BinPojo> add(Long binCount) {
+        List<BinPojo> addedPojoList = new ArrayList<>();
+        for (int i = 0; i < binCount; i++) {
+            BinPojo addedPojo = binDao.add(new BinPojo());
+            addedPojoList.add(addedPojo);
+        }
+        return addedPojoList;
     }
 
     @Transactional(rollbackFor = ApiException.class)
@@ -104,5 +109,10 @@ public class BinService {
         InventoryPojo inventoryPojo = binDao.getInventoryPojoByGlobalSkuId(globalSkuId);
         inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() - fulfill);
         inventoryPojo.setFulfilledQuantity(inventoryPojo.getFulfilledQuantity() + fulfill);
+    }
+
+    @Transactional
+    public List<BinPojo> getAll() {
+        return binDao.getAll();
     }
 }

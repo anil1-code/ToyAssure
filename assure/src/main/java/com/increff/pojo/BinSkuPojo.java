@@ -2,6 +2,7 @@ package com.increff.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import pojo.AbstractPojo;
 
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "assure_bin_skus", uniqueConstraints = {@UniqueConstraint(columnNames = {"bin_id", "global_sku_id"})})
-public class BinSkuPojo {
+public class BinSkuPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)

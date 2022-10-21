@@ -5,9 +5,12 @@ import com.increff.pojo.ChannelPojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class ChannelDao extends AbstractDao {
+    private static final String selectAll = "select p from ChannelPojo p";
+    private static final String selectAllChannelMappings = "select p from ChannelListingPojo p";
     private static final String selectByName = "select p from ChannelPojo p where name=:name";
     private static final String selectChannelPojoById = "select p from ChannelPojo p where id=:id";
     private static final String selectByChannelAndGlobalSkuId = "select p from ChannelListingPojo p where channelId=:channelId and globalSkuId=:globalSkuId";
@@ -36,7 +39,7 @@ public class ChannelDao extends AbstractDao {
         return getSingle(query);
     }
 
-    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, Long channelSkuId) {
+    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, String channelSkuId) {
         TypedQuery<ChannelListingPojo> query = getQuery(selectByClientChannelAndChannelSkuId, ChannelListingPojo.class);
         query.setParameter("clientId", clientId);
         query.setParameter("channelId", channelId);
@@ -48,5 +51,15 @@ public class ChannelDao extends AbstractDao {
         TypedQuery<ChannelPojo> query = getQuery(selectChannelPojoById, ChannelPojo.class);
         query.setParameter("id", channelId);
         return getSingle(query);
+    }
+
+    public List<ChannelPojo> getAllChannels() {
+        TypedQuery<ChannelPojo> query = getQuery(selectAll, ChannelPojo.class);
+        return query.getResultList();
+    }
+
+    public List<ChannelListingPojo> getAllChannelMappings() {
+        TypedQuery<ChannelListingPojo> query = getQuery(selectAllChannelMappings, ChannelListingPojo.class);
+        return query.getResultList();
     }
 }

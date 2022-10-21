@@ -23,14 +23,14 @@ public class OrderController {
         return orderDto.createOrder(orderForm);
     }
 
-    @ApiOperation(value = "allocate orders")
+    @ApiOperation(value = "allocate or fulfill orders")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public OrderPojo changeStatus(@PathVariable Long id, @RequestBody OrderStatus orderStatus) throws ApiException {
         return orderDto.changeStatus(id, orderStatus);
     }
 
     @ApiOperation(value = "generate invoice for the specified order")
-    @RequestMapping(value = "/generate-invoice/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/generate-invoice/{id}", method = RequestMethod.GET, produces = "application/pdf")
     public byte[] generateInvoice(@PathVariable Long id) throws ApiException {
         return orderDto.generateInvoice(id);
     }

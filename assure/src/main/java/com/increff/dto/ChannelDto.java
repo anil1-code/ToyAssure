@@ -1,6 +1,8 @@
 package com.increff.dto;
 
 import com.increff.dto.helper.ChannelDtoHelper;
+import com.increff.model.data.ChannelData;
+import com.increff.model.data.ChannelListingData;
 import com.increff.model.forms.ChannelForm;
 import com.increff.model.forms.ChannelIDMapForm;
 import com.increff.pojo.ChannelListingPojo;
@@ -23,6 +25,7 @@ public class ChannelDto {
         if (errorMsg.length() != 0) {
             throw new ApiException(errorMsg.toString());
         }
+        ChannelDtoHelper.normalize(channelForm);
         ChannelPojo channelPojo = new ChannelPojo();
         channelPojo.setName(channelForm.getName());
         channelPojo.setInvoiceType(channelForm.getChannelType());
@@ -33,12 +36,22 @@ public class ChannelDto {
         StringBuilder errorMsg = new StringBuilder();
         int row = 1;
         for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
-            ChannelDtoHelper.validate(channelIDMapForm, row++, errorMsg);
+            ChannelDtoHelper.validateAndNormalize(channelIDMapForm, row++, errorMsg);
         }
         if (errorMsg.length() != 0) {
             throw new ApiException(errorMsg.toString());
         }
         return channelService.addChannelIDMappings(ChannelDtoHelper.convertToPojoList(channelIDMapFormList),
                 ChannelDtoHelper.getChannelNameList(channelIDMapFormList), ChannelDtoHelper.getClientNameList(channelIDMapFormList));
+    }
+
+    public List<ChannelData> getAllChannels() {
+        List<ChannelPojo> channelPojoList = channelService.getAllChannels();
+        return ChannelDtoHelper.convertToChannelDataList(channelPojoList);
+    }
+
+    public List<ChannelListingData> getAllChannelMappings() {
+        List<ChannelListingPojo> channelListingPojoList = channelService.getAllChannelMappings();
+        return ChannelDtoHelper.convertToChannelListingDataList(channelListingPojoList);
     }
 }

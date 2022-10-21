@@ -2,7 +2,7 @@ package com.increff.spring;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-;
+
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

@@ -39,13 +39,13 @@ public class OrderService {
     private BinService binService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private RestTemplate restTemplate;
+
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Value("channel.Uri")
     private String channelBaseUri;
 
-    public void validate(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<Long> channelSkuIds, String channelName) throws ApiException {
+    public void validate(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<String> channelSkuIds, String channelName) throws ApiException {
         ChannelPojo channelPojo = channelService.getByName(channelName);
         StringBuilder errorMsg = new StringBuilder();
         // check if channel name exists or not and set the channel id
@@ -78,13 +78,23 @@ public class OrderService {
         // check if globalSkuIds exists or not for the given channelSkuIds and channelId combination
         for (OrderItemPojo orderItemPojo : orderItemPojoList) {
             ChannelListingPojo channelListingPojo = null;
-            if (clientPojo != null && channelPojo != null)
-                channelListingPojo = channelService.getByClientChannelAndChannelSkuId(clientPojo.getId(), channelPojo.getId(), channelSkuIds.get(orderItem++));
+            if (clientPojo != null && channelPojo != null) {
+                if (Objects.equals(channelPojo.getName(), "INTERNAL")) {
+                    ProductPojo productPojo = productService.getByClientAndClientSkuId(clientPojo.getId(), channelSkuIds.get(orderItem - 1));
+                    if (productPojo != null) {
+                        channelListingPojo = new ChannelListingPojo();
+                        channelListingPojo.setGlobalSkuId(productPojo.getGlobalSkuId());
+                    }
+                } else {
+                    channelListingPojo = channelService.getByClientChannelAndChannelSkuId(clientPojo.getId(), channelPojo.getId(), channelSkuIds.get(orderItem - 1));
+                }
+            }
             if (channelListingPojo == null) {
                 errorMsg.append("OrderItem ").append(orderItem).append(": ").append("No globalSkuId exists for the given channel, client and channelSkuId.\n");
             } else {
                 orderItemPojo.setGlobalSkuId(channelListingPojo.getGlobalSkuId());
             }
+            orderItem++;
         }
         if (errorMsg.length() != 0) {
             throw new ApiException(errorMsg.toString());
@@ -92,11 +102,13 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public OrderPojo createOrder(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<Long> channelSkuIds, String channelName) throws ApiException {
+    public OrderPojo createOrder(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<String> channelSkuIds, String channelName) throws ApiException {
         validate(orderPojo, orderItemPojoList, channelSkuIds, channelName);
         OrderPojo createdPojo = orderDao.createOrder(orderPojo);
         for (OrderItemPojo orderItemPojo : orderItemPojoList) {
             orderItemPojo.setOrderId(createdPojo.getId());
+            orderItemPojo.setAllocatedQuantity(0L);
+            orderItemPojo.setFulfilledQuantity(0L);
             orderDao.createOrderItem(orderItemPojo);
         }
         return createdPojo;

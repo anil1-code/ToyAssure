@@ -16,8 +16,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class ChannelOrderDto {
-    @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Value("${server.Uri}")
     private String serverUri;

@@ -33,7 +33,6 @@ public class ProductDto {
         }
         List<ProductPojo> productPojoList = new ArrayList<>();
         for (ProductForm productForm : productFormList) {
-            ProductDtoHelper.normalize(productForm);
             productPojoList.add(ProductDtoHelper.convertFormToPojo(productForm));
         }
         return productService.add(productPojoList);

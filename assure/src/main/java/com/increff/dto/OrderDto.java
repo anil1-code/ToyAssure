@@ -24,7 +24,7 @@ public class OrderDto {
             throw new ApiException(error);
         }
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
-        List<Long> channelSkuIds = new ArrayList<>();
+        List<String> channelSkuIds = new ArrayList<>();
         OrderPojo orderPojo = OrderDtoHelper.convertToOrderPojoAndFillOrderItemList(orderForm, orderItemPojoList, channelSkuIds);
         return orderService.createOrder(orderPojo, orderItemPojoList, channelSkuIds, orderForm.getChannelName());
     }

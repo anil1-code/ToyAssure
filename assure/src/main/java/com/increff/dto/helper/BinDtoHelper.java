@@ -1,6 +1,8 @@
 package com.increff.dto.helper;
 
+import com.increff.model.data.BinData;
 import com.increff.model.forms.BinwiseInventoryForm;
+import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
 import com.sun.istack.NotNull;
 import exception.ApiException;
@@ -41,5 +43,19 @@ public class BinDtoHelper {
         binSkuPojo.setBinId(form.getBinId());
         binSkuPojo.setQuantity(form.getQuantity());
         return binSkuPojo;
+    }
+
+    public static List<BinData> convertToDataList(List<BinPojo> binPojoList) {
+        List<BinData> binDataList = new ArrayList<>();
+        for(BinPojo binPojo : binPojoList) {
+            binDataList.add(convertToData(binPojo));
+        }
+        return binDataList;
+    }
+
+    private static BinData convertToData(BinPojo binPojo) {
+        BinData binData = new BinData();
+        binData.setId(binPojo.getId());
+        return binData;
     }
 }

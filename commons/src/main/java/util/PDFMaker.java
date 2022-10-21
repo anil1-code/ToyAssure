@@ -16,7 +16,7 @@ public class PDFMaker {
 
     public static byte[] makePdf(InvoiceData invoiceData) throws ApiException {
         String xml = jaxbObjectToXML(invoiceData);
-        String xsltPath = "src/main/resources/com/increff/pos/invoice.xml";
+        String xsltPath = "../commons/src/main/resources/invoice.xml";
         try {
             return convertToPDF(xsltPath, xml);
         } catch (IOException e) {
@@ -45,7 +45,9 @@ public class PDFMaker {
             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
             Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
             TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer(new StreamSource(xsltPath));
+            File f = new File(xsltPath);
+            StreamSource streamSource = new StreamSource(f);
+            Transformer transformer = factory.newTransformer(streamSource);
             Source src = new StreamSource(new StringReader(xml));
             Result res = new SAXResult(fop.getDefaultHandler());
             transformer.transform(src, res);

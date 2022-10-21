@@ -1,6 +1,7 @@
 package com.increff.controller;
 
 import com.increff.dto.BinDto;
+import com.increff.model.data.BinData;
 import com.increff.model.forms.BinwiseInventoryForm;
 import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
@@ -21,8 +22,14 @@ public class BinController {
 
     @ApiOperation("create n number of bins")
     @RequestMapping(value = "/{binCount}", method = RequestMethod.POST)
-    public List<BinPojo> add(@PathVariable Long binCount) {
+    public List<BinPojo> add(@PathVariable Long binCount) throws ApiException {
         return binDto.add(binCount);
+    }
+
+    @ApiOperation("get all bins")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<BinData> getAll() {
+        return binDto.getAll();
     }
 
     @ApiOperation("put products into the bin")

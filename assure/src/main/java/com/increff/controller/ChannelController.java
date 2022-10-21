@@ -1,6 +1,8 @@
 package com.increff.controller;
 
 import com.increff.dto.ChannelDto;
+import com.increff.model.data.ChannelData;
+import com.increff.model.data.ChannelListingData;
 import com.increff.model.forms.ChannelForm;
 import com.increff.model.forms.ChannelIDMapForm;
 import com.increff.pojo.ChannelListingPojo;
@@ -27,6 +29,18 @@ public class ChannelController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ChannelPojo add(@RequestBody ChannelForm channelForm) throws ApiException {
         return channelDto.add(channelForm);
+    }
+
+    @ApiOperation("gets all the channels")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ChannelData> getAllChannels() {
+        return channelDto.getAllChannels();
+    }
+
+    @ApiOperation("gets all the channels")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ChannelListingData> getAllChannelMappings() {
+        return channelDto.getAllChannelMappings();
     }
 
     @ApiOperation("adds the channel id mappings")

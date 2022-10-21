@@ -74,11 +74,21 @@ public class ChannelService {
     public ChannelPojo getByName(String channelName) {
         return channelDao.getByName(channelName);
     }
+
     public ChannelPojo getById(Long channelId) {
         return channelDao.getById(channelId);
     }
 
-    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, Long channelSkuId) {
+    public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, String channelSkuId) {
         return channelDao.getByClientChannelAndChannelSkuId(clientId, channelId, channelSkuId);
+    }
+
+    @Transactional
+    public List<ChannelPojo> getAllChannels() {
+        return channelDao.getAllChannels();
+    }
+
+    public List<ChannelListingPojo> getAllChannelMappings() {
+        return channelDao.getAllChannelMappings();
     }
 }

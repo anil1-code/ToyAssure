@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderItemForm {
-    private Long channelSkuId;
+    private String channelSkuId;
     private Long orderedQuantity;
     private Double sellingPricePerUnit;
 }

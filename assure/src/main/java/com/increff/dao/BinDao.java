@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class BinDao extends AbstractDao {
+    private static final String selectAll = "select p from BinPojo p";
     private static final String selectBinPojoById = "select p from BinPojo p where id=:id";
     private static final String selectBinSkusByGlobalSkuIDs = "select p from BinSkuPojo p where globalSkuId=:globalSkuId";
     private static final String selectInventoryPojoByGlobalSkuId = "select p from InventoryPojo p where globalSkuId=:globalSkuId";
@@ -52,6 +53,11 @@ public class BinDao extends AbstractDao {
     public List<BinSkuPojo> getBinSkusByGlobalSkuIds(Long globalSkuId) {
         TypedQuery<BinSkuPojo> query = getQuery(selectBinSkusByGlobalSkuIDs, BinSkuPojo.class);
         query.setParameter("globalSkuId", globalSkuId);
+        return query.getResultList();
+    }
+
+    public List<BinPojo> getAll() {
+        TypedQuery<BinPojo> query = getQuery(selectAll, BinPojo.class);
         return query.getResultList();
     }
 }

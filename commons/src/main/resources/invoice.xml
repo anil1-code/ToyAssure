@@ -19,22 +19,60 @@
                               space-after="2mm">
                         Invoice
                     </fo:block>
-                    <fo:block font-size="12pt" text-align="center" font-family="Helvetica" font-weight="bold"
-                              space-after="5mm">
-                        Ordered on:
-                        <xsl:value-of select="orderedTime"/>
+                    <fo:block>
+                        <fo:table border-collapse="separate" border-spacing="5pt 2pt">
+                            <fo:table-column column-width="11.5cm"/>
+                            <fo:table-column column-width="11.5cm"/>
+                            <fo:table-body>
+                                <fo:table-row>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="left" font-weight="bold">
+                                            Customer Name:
+                                            <xsl:value-of select="customerName"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="right" font-weight="bold">
+                                            Ordered On:
+                                            <xsl:value-of select="orderedTime"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="left" font-weight="bold">
+                                            Client Name:
+                                            <xsl:value-of select="clientName"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="right" font-weight="bold">
+                                            Invoice generated on:
+                                            <xsl:value-of select="invoiceTime"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="left" font-weight="bold">
+                                            Channel Name:
+                                            <xsl:value-of select="channelName"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell>
+                                        <fo:block font-size="12pt" text-align="left" font-weight="bold">
+                                            Channel Name:
+                                            <xsl:value-of select="channelName"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
                     </fo:block>
-                    <fo:block font-size="12pt" text-align="center" font-family="Helvetica" font-weight="bold"
-                              space-after="5mm">
-                        Invoice generated on:
-                        <xsl:value-of select="invoiceTime"/>
-                    </fo:block>
-                    <fo:block font-size="12pt" text-align="center" font-family="Helvetica" font-weight="bold"
-                              space-after="5mm">
-                        Order Id:
-                        <xsl:value-of select="orderId"/>
-                    </fo:block>
-                    <fo:block font-size="10pt">
+
+                    <fo:block font-size="10pt" padding-top="4%">
                         <fo:table table-layout="fixed" width="100%" border-collapse="separate">
                             <fo:table-column column-width="2cm"/>
                             <fo:table-column column-width="5cm"/>
@@ -44,7 +82,7 @@
                             <fo:table-column column-width="5cm"/>
                             <fo:table-header font-weight="bold">
                                 <fo:table-cell border="1pt solid black" xsl:use-attribute-sets="tableBorder">
-                                    <fo:block font-size="15pt" text-align="center" font-weight="bold">Sr. no.</fo:block>
+                                    <fo:block font-size="15pt" text-align="center" font-weight="bold">Sr. no</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell border="1pt solid black" xsl:use-attribute-sets="tableBorder">
                                     <fo:block font-size="15pt" text-align="center" font-weight="bold">Product Id

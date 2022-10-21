@@ -14,12 +14,10 @@ import java.util.Date;
 @MappedSuperclass
 public class AbstractPojo {
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     protected ZonedDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     protected ZonedDateTime updatedAt;

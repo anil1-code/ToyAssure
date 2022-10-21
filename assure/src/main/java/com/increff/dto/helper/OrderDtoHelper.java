@@ -42,7 +42,7 @@ public class OrderDtoHelper {
             errorMsg.append(".\n");
         }
         errors.clear();
-        Set<Long> channelIDSet = new HashSet<>();
+        Set<String> channelIDSet = new HashSet<>();
         int orderItem = 1;
         for (OrderItemForm orderItemForm : orderForm.getOrderItemList()) {
             List<String> rowErrors = validateOrderItemForm(orderItemForm);
@@ -72,7 +72,7 @@ public class OrderDtoHelper {
         if (orderItemForm.getOrderedQuantity() == null || orderItemForm.getOrderedQuantity() < 1) {
             errors.add("quantity can't be null or less than 1");
         }
-        if (orderItemForm.getChannelSkuId() == null || orderItemForm.getChannelSkuId() < 1) {
+        if (orderItemForm.getChannelSkuId() == null) {
             errors.add("ClientSkuId can't be null or less than 1");
         }
         if (orderItemForm.getSellingPricePerUnit() == null) {
@@ -81,7 +81,7 @@ public class OrderDtoHelper {
         return errors;
     }
 
-    public static OrderPojo convertToOrderPojoAndFillOrderItemList(OrderForm orderForm, List<OrderItemPojo> orderItemPojoList, List<Long> channelSkuIds) {
+    public static OrderPojo convertToOrderPojoAndFillOrderItemList(OrderForm orderForm, List<OrderItemPojo> orderItemPojoList, List<String> channelSkuIds) {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setOrderStatus(OrderStatus.CREATED);
         orderPojo.setChannelOrderId(orderForm.getChannelOrderId());

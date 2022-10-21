@@ -56,7 +56,7 @@ public class DbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setPackagesToScan(PACKAGE_POJO);
+        bean.setPackagesToScan(PACKAGE_POJO, "pojo");
         HibernateJpaVendorAdapter jpaAdapter = new HibernateJpaVendorAdapter();
         bean.setJpaVendorAdapter(jpaAdapter);
         Properties jpaProperties = new Properties();

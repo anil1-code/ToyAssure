@@ -10,13 +10,15 @@ import java.util.List;
 @Setter
 @XmlRootElement
 public class InvoiceData {
-    private Long orderId;
+    private String orderedTime;
+    private String invoiceTime;
     private String channelOrderId;
+
     private String clientName;
     private String customerName;
     private String channelName;
-    private String orderedTime;
-    private String invoiceTime;
+
     private Double total;
+
     private List<OrderItemInvoiceData> orderItemDataList;
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +69,10 @@ public class ProductService {
     @Transactional
     public ProductPojo getByGlobalSkuId(Long globalSkuId) {
         return productDao.getByGlobalSkuId(globalSkuId);
+    }
+
+    @Transactional
+    public ProductPojo getByClientAndClientSkuId(Long clientId, String clientSkuId) {
+        return productDao.getByClientAndClientSku(clientId, clientSkuId);
     }
 }

@@ -68,13 +68,6 @@ public class ProductDtoHelper {
         }
         errorMsg.append(".\n");
     }
-
-    public static void normalize(ProductForm productForm) {
-        productForm.setName(BasicDataUtil.trimAndLowerCase(productForm.getName()));
-        // should i trim description also
-        productForm.setMrp(BasicDataUtil.roundOffDouble(productForm.getMrp()));
-    }
-
     public static ProductPojo convertFormToPojo(@NotNull ProductForm productForm) {
         ProductPojo productPojo = new ProductPojo();
         productPojo.setDescription(productForm.getDescription());
@@ -86,3 +79,6 @@ public class ProductDtoHelper {
         return productPojo;
     }
 }
+
+// TODO: 20/10/22 Normalise product
+// TODO: 21/10/22 getChannels, getBins, getChannelMappings
