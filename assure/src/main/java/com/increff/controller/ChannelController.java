@@ -38,7 +38,7 @@ public class ChannelController {
     }
 
     @ApiOperation("gets all the channels")
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/mappings", method = RequestMethod.GET)
     public List<ChannelListingData> getAllChannelMappings() {
         return channelDto.getAllChannelMappings();
     }

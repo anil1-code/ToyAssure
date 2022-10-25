@@ -5,44 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b476af94-ae60-4248-81c6-6b257997205c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/model/data/BinData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/model/data/ChannelData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/model/data/ChannelListingData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/config/AbstractUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/config/TestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/dto/BinDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/dto/ProductDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/dto/UserDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/BinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/BinController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/ChannelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/ChannelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dao/BinDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dao/BinDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dao/ChannelDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dao/ChannelDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/BinDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/BinDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/ChannelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/ChannelDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/OrderDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/ProductDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/BinDtoHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/BinDtoHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/ChannelDtoHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/ChannelDtoHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/OrderDtoHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/OrderDtoHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/ProductDtoHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/dto/helper/ProductDtoHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/BinPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/BinPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/BinSkuPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/BinSkuPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelListingPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelListingPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/InventoryPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/InventoryPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/BinService.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/BinService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/ChannelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/ChannelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/AppRestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/AppRestControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/DbConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/DbConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/util/BasicDataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/util/BasicDataUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/channel/src/main/java/com/increff/dto/ChannelOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/channel/src/main/java/com/increff/dto/ChannelOrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/channel/src/main/java/com/increff/spring/DbConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/channel/src/main/java/com/increff/spring/WebInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/channel/src/main/java/com/increff/spring/WebInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/commons/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/model/data/InvoiceData.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/model/data/InvoiceData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/model/form/OrderItemForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/model/form/OrderItemForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/pojo/AbstractPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/pojo/AbstractPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/util/PDFMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/util/PDFMaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/resources/invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/resources/invoice.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +89,85 @@
       <recent name="$PROJECT_DIR$/assure/src/main/java" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ProductDtoTest">
+    <configuration name="ProductDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.dto.ProductDtoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductDtoTest.addTestValidFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.dto.ProductDtoTest" />
+      <option name="METHOD_NAME" value="addTestValidFields" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductDtoTest.updateTestInvalidGlobalSkuId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.dto.ProductDtoTest" />
+      <option name="METHOD_NAME" value="updateTestInvalidGlobalSkuId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductDtoTest.updateTestValidFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.dto.ProductDtoTest" />
+      <option name="METHOD_NAME" value="updateTestValidFields" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.dto.UserDtoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="assure [jetty:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -141,6 +193,15 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProductDtoTest" />
+        <item itemvalue="JUnit.UserDtoTest" />
+        <item itemvalue="JUnit.ProductDtoTest.updateTestInvalidGlobalSkuId" />
+        <item itemvalue="JUnit.ProductDtoTest.updateTestValidFields" />
+        <item itemvalue="JUnit.ProductDtoTest.addTestValidFields" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

@@ -44,7 +44,7 @@ public class ProductDtoHelper {
             if (BasicDataUtil.isEmpty(productForm.getName())) {
                 errors.add("Product name should not be empty");
             } else {
-                BasicDataUtil.trimAndLowerCase(productForm.getName());
+                productForm.setName(BasicDataUtil.trimAndLowerCase(productForm.getName()));
             }
             if (BasicDataUtil.isEmpty(productForm.getClientSkuId())) {
                 errors.add("ClientSkuId should not be empty");
@@ -53,9 +53,12 @@ public class ProductDtoHelper {
                 errors.add("Product description should not be empty");
             }
             if (productForm.getMrp() == null) { // what should be the condition on mrp
-                errors.add("Mrp should be null");
+                errors.add("Mrp should not be null");
             } else {
-                BasicDataUtil.roundOffDouble(productForm.getMrp());
+                productForm.setMrp(BasicDataUtil.roundOffDouble(productForm.getMrp()));
+                if (productForm.getMrp() < 0) {
+                    errors.add("Mrp should be positive");
+                }
             }
         }
         if (errors.size() == 0) return;
@@ -68,6 +71,7 @@ public class ProductDtoHelper {
         }
         errorMsg.append(".\n");
     }
+
     public static ProductPojo convertFormToPojo(@NotNull ProductForm productForm) {
         ProductPojo productPojo = new ProductPojo();
         productPojo.setDescription(productForm.getDescription());
@@ -79,6 +83,3 @@ public class ProductDtoHelper {
         return productPojo;
     }
 }
-
-// TODO: 20/10/22 Normalise product
-// TODO: 21/10/22 getChannels, getBins, getChannelMappings

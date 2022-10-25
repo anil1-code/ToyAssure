@@ -22,11 +22,10 @@ public class ProductDto {
         return ProductDtoHelper.convertPojoListToDataList(productService.getAll());
     }
 
-    @Transactional
     public List<ProductPojo> add(List<ProductForm> productFormList) throws ApiException {
         StringBuilder errorMsg = new StringBuilder();
         for (int i = 0; i < productFormList.size(); i++) {
-            ProductDtoHelper.validateAndNormalise(productFormList.get(i), i, errorMsg);
+            ProductDtoHelper.validateAndNormalise(productFormList.get(i), i + 1, errorMsg);
         }
         if (errorMsg.length() != 0) {
             throw new ApiException(errorMsg.toString());

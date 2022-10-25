@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ChannelDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.increff.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: ChannelDto (com.increff.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ChannelDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.3%
+  </span>
+  <span class="absValue">
+    (1/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.increff.dto;
+&nbsp;
+&nbsp;import com.increff.dto.helper.ChannelDtoHelper;
+&nbsp;import com.increff.model.data.ChannelData;
+&nbsp;import com.increff.model.data.ChannelListingData;
+&nbsp;import com.increff.model.forms.ChannelForm;
+&nbsp;import com.increff.model.forms.ChannelIDMapForm;
+&nbsp;import com.increff.pojo.ChannelListingPojo;
+&nbsp;import com.increff.pojo.ChannelPojo;
+&nbsp;import com.increff.service.ChannelService;
+&nbsp;import exception.ApiException;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Component
+<b class="fc">&nbsp;public class ChannelDto {</b>
+&nbsp;    @Autowired
+&nbsp;    private ChannelService channelService;
+&nbsp;
+&nbsp;    public ChannelPojo add(ChannelForm channelForm) throws ApiException {
+<b class="nc">&nbsp;        StringBuilder errorMsg = new StringBuilder();</b>
+<b class="nc">&nbsp;        ChannelDtoHelper.validateChannelForm(channelForm, errorMsg);</b>
+<b class="nc">&nbsp;        if (errorMsg.length() != 0) {</b>
+<b class="nc">&nbsp;            throw new ApiException(errorMsg.toString());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        ChannelDtoHelper.normalize(channelForm);</b>
+<b class="nc">&nbsp;        ChannelPojo channelPojo = new ChannelPojo();</b>
+<b class="nc">&nbsp;        channelPojo.setName(channelForm.getName());</b>
+<b class="nc">&nbsp;        channelPojo.setInvoiceType(channelForm.getChannelType());</b>
+<b class="nc">&nbsp;        return channelService.add(channelPojo);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;ChannelListingPojo&gt; addChannelIDMappings(List&lt;ChannelIDMapForm&gt; channelIDMapFormList) throws ApiException {
+<b class="nc">&nbsp;        StringBuilder errorMsg = new StringBuilder();</b>
+<b class="nc">&nbsp;        int row = 1;</b>
+<b class="nc">&nbsp;        for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {</b>
+<b class="nc">&nbsp;            ChannelDtoHelper.validateAndNormalize(channelIDMapForm, row++, errorMsg);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        if (errorMsg.length() != 0) {</b>
+<b class="nc">&nbsp;            throw new ApiException(errorMsg.toString());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return channelService.addChannelIDMappings(ChannelDtoHelper.convertToPojoList(channelIDMapFormList),</b>
+<b class="nc">&nbsp;                ChannelDtoHelper.getChannelNameList(channelIDMapFormList), ChannelDtoHelper.getClientNameList(channelIDMapFormList));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;ChannelData&gt; getAllChannels() {
+<b class="nc">&nbsp;        List&lt;ChannelPojo&gt; channelPojoList = channelService.getAllChannels();</b>
+<b class="nc">&nbsp;        return ChannelDtoHelper.convertToChannelDataList(channelPojoList);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;ChannelListingData&gt; getAllChannelMappings() {
+<b class="nc">&nbsp;        List&lt;ChannelListingPojo&gt; channelListingPojoList = channelService.getAllChannelMappings();</b>
+<b class="nc">&nbsp;        return ChannelDtoHelper.convertToChannelListingDataList(channelListingPojoList);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-10-25 18:10</div>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinDtoHelper {
-    public static void validate(BinwiseInventoryForm binwiseInventoryForm, int row, StringBuilder errorMsg) throws ApiException {
+    public static void validate(BinwiseInventoryForm binwiseInventoryForm, int row, StringBuilder errorMsg) {
         List<String> errors = new ArrayList<>();
         if (binwiseInventoryForm == null) {
             errors.add("Form can't be null");
@@ -22,8 +22,8 @@ public class BinDtoHelper {
             if (binwiseInventoryForm.getGlobalSkuId() == null) {
                 errors.add("GlobalSkuId can't be empty");
             }
-            if (binwiseInventoryForm.getQuantity() == null) {
-                errors.add("Quantity can't be empty");
+            if (binwiseInventoryForm.getQuantity() == null || binwiseInventoryForm.getQuantity() < 1) {
+                errors.add("Quantity can't be empty or less than 1");
             }
         }
         if (errors.size() != 0) {
@@ -33,7 +33,6 @@ public class BinDtoHelper {
                 errorMsg.append(errors.get(i));
             }
             errorMsg.append(".\n");
-            throw new ApiException(errorMsg.toString());
         }
     }
 
@@ -47,7 +46,7 @@ public class BinDtoHelper {
 
     public static List<BinData> convertToDataList(List<BinPojo> binPojoList) {
         List<BinData> binDataList = new ArrayList<>();
-        for(BinPojo binPojo : binPojoList) {
+        for (BinPojo binPojo : binPojoList) {
             binDataList.add(convertToData(binPojo));
         }
         return binDataList;

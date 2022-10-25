@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProductDtoHelper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.increff.dto.helper</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductDtoHelper (com.increff.dto.helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProductDtoHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98%
+  </span>
+  <span class="absValue">
+    (49/50)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.increff.dto.helper;
+&nbsp;
+&nbsp;import com.increff.model.data.ProductData;
+&nbsp;import com.increff.model.forms.ProductForm;
+&nbsp;import com.increff.pojo.ProductPojo;
+&nbsp;import com.increff.util.BasicDataUtil;
+&nbsp;import com.sun.istack.NotNull;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class ProductDtoHelper {</b>
+&nbsp;    public static List&lt;ProductData&gt; convertPojoListToDataList(List&lt;ProductPojo&gt; productPojoList) {
+<b class="fc">&nbsp;        List&lt;ProductData&gt; productDataList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (ProductPojo productPojo : productPojoList) {</b>
+<b class="fc">&nbsp;            productDataList.add(convertPojoToData(productPojo));</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return productDataList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static ProductData convertPojoToData(ProductPojo productPojo) {
+<b class="fc">&nbsp;        ProductData productData = new ProductData();</b>
+<b class="fc">&nbsp;        productData.setMrp(productPojo.getMrp());</b>
+<b class="fc">&nbsp;        productData.setName(productPojo.getName());</b>
+<b class="fc">&nbsp;        productData.setBrandId(productPojo.getBrandId());</b>
+<b class="fc">&nbsp;        productData.setDescription(productPojo.getDescription());</b>
+<b class="fc">&nbsp;        productData.setClientId(productPojo.getClientId());</b>
+<b class="fc">&nbsp;        productData.setGlobalSkuId(productPojo.getGlobalSkuId());</b>
+<b class="fc">&nbsp;        productData.setClientSkuId(productPojo.getClientSkuId());</b>
+<b class="fc">&nbsp;        return productData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void validateAndNormalise(ProductForm productForm, int row, StringBuilder errorMsg) {
+<b class="fc">&nbsp;        List&lt;String&gt; errors = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        if (productForm == null) {</b>
+<b class="fc">&nbsp;            errors.add(&quot;Form should not be null&quot;);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            if (BasicDataUtil.isEmpty(productForm.getBrandId())) {</b>
+<b class="fc">&nbsp;                errors.add(&quot;Brand ID should not be empty&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (productForm.getClientId() == null) {</b>
+<b class="fc">&nbsp;                errors.add(&quot;Client ID should not be empty&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (BasicDataUtil.isEmpty(productForm.getName())) {</b>
+<b class="fc">&nbsp;                errors.add(&quot;Product name should not be empty&quot;);</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                productForm.setName(BasicDataUtil.trimAndLowerCase(productForm.getName()));</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (BasicDataUtil.isEmpty(productForm.getClientSkuId())) {</b>
+<b class="fc">&nbsp;                errors.add(&quot;ClientSkuId should not be empty&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (BasicDataUtil.isEmpty(productForm.getDescription())) {</b>
+<b class="fc">&nbsp;                errors.add(&quot;Product description should not be empty&quot;);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (productForm.getMrp() == null) { // what should be the condition on mrp</b>
+<b class="fc">&nbsp;                errors.add(&quot;Mrp should not be null&quot;);</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                productForm.setMrp(BasicDataUtil.roundOffDouble(productForm.getMrp()));</b>
+<b class="fc">&nbsp;                if (productForm.getMrp() &lt; 0) {</b>
+<b class="fc">&nbsp;                    errors.add(&quot;Mrp should be positive&quot;);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if (errors.size() == 0) return;</b>
+<b class="fc">&nbsp;        if (row != -1) // -1 indicates that the caller function do not want to add this prefix</b>
+<b class="fc">&nbsp;            errorMsg.append(&quot;row &quot;).append(row).append(&quot;: &quot;);</b>
+<b class="fc">&nbsp;        errorMsg.append(errors.get(0));</b>
+<b class="fc">&nbsp;        for (int i = 1; i &lt; errors.size(); i++) {</b>
+<b class="fc">&nbsp;            errorMsg.append(&quot;, &quot;);</b>
+<b class="fc">&nbsp;            errorMsg.append(errors.get(i));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        errorMsg.append(&quot;.\n&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static ProductPojo convertFormToPojo(@NotNull ProductForm productForm) {
+<b class="fc">&nbsp;        ProductPojo productPojo = new ProductPojo();</b>
+<b class="fc">&nbsp;        productPojo.setDescription(productForm.getDescription());</b>
+<b class="fc">&nbsp;        productPojo.setMrp(productForm.getMrp());</b>
+<b class="fc">&nbsp;        productPojo.setBrandId(productForm.getBrandId());</b>
+<b class="fc">&nbsp;        productPojo.setClientId(productForm.getClientId());</b>
+<b class="fc">&nbsp;        productPojo.setName(productForm.getName());</b>
+<b class="fc">&nbsp;        productPojo.setClientSkuId(productForm.getClientSkuId());</b>
+<b class="fc">&nbsp;        return productPojo;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-10-25 18:10</div>
+</div>
+</body>
+</html>
