@@ -8,10 +8,12 @@ import com.increff.model.forms.ChannelIDMapForm;
 import com.increff.pojo.ChannelListingPojo;
 import com.increff.pojo.ChannelPojo;
 import com.increff.service.ChannelService;
+import com.increff.util.BasicDataUtil;
 import exception.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -28,21 +30,43 @@ public class ChannelDto {
         ChannelDtoHelper.normalize(channelForm);
         ChannelPojo channelPojo = new ChannelPojo();
         channelPojo.setName(channelForm.getName());
-        channelPojo.setInvoiceType(channelForm.getChannelType());
+        channelPojo.setInvoiceType(channelForm.getInvoiceType());
         return channelService.add(channelPojo);
     }
 
-    public List<ChannelListingPojo> addChannelIDMappings(List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
+    public List<ChannelListingPojo> addChannelIDMappings(String clientName, String channelName, List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
         StringBuilder errorMsg = new StringBuilder();
-        int row = 1;
-        for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
-            ChannelDtoHelper.validateAndNormalize(channelIDMapForm, row++, errorMsg);
+        if (BasicDataUtil.isEmpty(clientName)) {
+            errorMsg.append("Client Name cannot be null or empty.\n");
+        } else {
+            clientName = BasicDataUtil.trimAndLowerCase(clientName);
         }
-        if (errorMsg.length() != 0) {
+        if (BasicDataUtil.isEmpty(channelName)) {
+            errorMsg.append("Channel Name cannot be null or empty.\n");
+        } else {
+            channelName = BasicDataUtil.trimAndLowerCase(channelName);
+        }
+        if (channelIDMapFormList == null) {
+            errorMsg.append("ChannelSkuId list cannot be null.\n");
             throw new ApiException(errorMsg.toString());
+        } else if (channelIDMapFormList.size() < 1) {
+            errorMsg.append("ChannelSkuId list cannot be empty.\n");
+            throw new ApiException(errorMsg.toString());
+        } else {
+            List<String> clientSkuIds = new ArrayList<>();
+            int row = 1;
+            for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
+                ChannelDtoHelper.validateAndNormalize(channelIDMapForm, row++, errorMsg);
+                if (channelIDMapForm != null) clientSkuIds.add(channelIDMapForm.getClientSkuId());
+            }
+
+            if (errorMsg.length() != 0) {
+                throw new ApiException(errorMsg.toString());
+            }
+            return channelService.addChannelIDMappings(clientName, channelName,
+                    ChannelDtoHelper.convertToPojoList(channelIDMapFormList),
+                    clientSkuIds);
         }
-        return channelService.addChannelIDMappings(ChannelDtoHelper.convertToPojoList(channelIDMapFormList),
-                ChannelDtoHelper.getChannelNameList(channelIDMapFormList), ChannelDtoHelper.getClientNameList(channelIDMapFormList));
     }
 
     public List<ChannelData> getAllChannels() {

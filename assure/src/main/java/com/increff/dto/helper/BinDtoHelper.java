@@ -4,8 +4,8 @@ import com.increff.model.data.BinData;
 import com.increff.model.forms.BinwiseInventoryForm;
 import com.increff.pojo.BinPojo;
 import com.increff.pojo.BinSkuPojo;
+import com.increff.util.BasicDataUtil;
 import com.sun.istack.NotNull;
-import exception.ApiException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +14,18 @@ public class BinDtoHelper {
     public static void validate(BinwiseInventoryForm binwiseInventoryForm, int row, StringBuilder errorMsg) {
         List<String> errors = new ArrayList<>();
         if (binwiseInventoryForm == null) {
-            errors.add("Form can't be null");
+            errors.add("Form cannot be null");
         } else {
             if (binwiseInventoryForm.getBinId() == null) {
-                errors.add("Bin Id can't be empty");
+                errors.add("Bin Id cannot be null");
             }
-            if (binwiseInventoryForm.getGlobalSkuId() == null) {
-                errors.add("GlobalSkuId can't be empty");
+            if (BasicDataUtil.isEmpty(binwiseInventoryForm.getClientSkuId())) {
+                errors.add("ClientSkuId cannot be null or empty");
             }
-            if (binwiseInventoryForm.getQuantity() == null || binwiseInventoryForm.getQuantity() < 1) {
-                errors.add("Quantity can't be empty or less than 1");
+            if (binwiseInventoryForm.getQuantity() == null) {
+                errors.add("Quantity cannot be null");
+            } else if (binwiseInventoryForm.getQuantity() < 1) {
+                errors.add("Quantity cannot be less than 1");
             }
         }
         if (errors.size() != 0) {
@@ -38,7 +40,6 @@ public class BinDtoHelper {
 
     public static BinSkuPojo convertFormToPojo(@NotNull BinwiseInventoryForm form) {
         BinSkuPojo binSkuPojo = new BinSkuPojo();
-        binSkuPojo.setGlobalSkuId(form.getGlobalSkuId());
         binSkuPojo.setBinId(form.getBinId());
         binSkuPojo.setQuantity(form.getQuantity());
         return binSkuPojo;

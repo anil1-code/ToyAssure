@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class ChannelForm {
     private String name;
-    private InvoiceType channelType;
+    private InvoiceType invoiceType;
 }

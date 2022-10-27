@@ -33,8 +33,8 @@ public class BinController {
     }
 
     @ApiOperation("put products into the bin")
-    @RequestMapping(value = "/binwise_inventory", method = RequestMethod.POST)
-    public List<BinSkuPojo> addInventory(@RequestBody List<BinwiseInventoryForm> binwiseInventoryFormList) throws ApiException {
-        return binDto.addInventory(binwiseInventoryFormList);
+    @RequestMapping(value = "/binwise_inventory/{clientId}", method = RequestMethod.POST)
+    public List<BinSkuPojo> addInventory(@PathVariable Long clientId, @RequestBody List<BinwiseInventoryForm> binwiseInventoryFormList) throws ApiException {
+        return binDto.addInventory(clientId, binwiseInventoryFormList);
     }
 }

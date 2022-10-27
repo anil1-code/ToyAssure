@@ -19,7 +19,6 @@ public class ProductService {
     @Autowired
     private UserService userService;
 
-
     @Transactional(readOnly = true)
     public List<ProductPojo> getAll() {
         return productDao.getAll();
@@ -34,10 +33,10 @@ public class ProductService {
             UserPojo userPojo = userService.getById(productPojo.getClientId());
             if (userPojo == null || userPojo.getType() == UserType.CUSTOMER) {
                 // not a valid client id
-                errorMsg.append("row ").append(row).append(": ").append("Invalid Client Id\n");
-            } else if (productDao.getByClientAndClientSku(productPojo.getClientId(), productPojo.getClientSkuId()) != null) {
+                errorMsg.append("row ").append(row).append(": ").append("Invalid Client Id.\n");
+            } else if (getByClientAndClientSkuId(productPojo.getClientId(), productPojo.getClientSkuId()) != null) {
                 // clientId and clientSkuId combination already exists
-                errorMsg.append("row ").append(row).append(": ").append("ClientId and ClientSkuId combination already exists\n");
+                errorMsg.append("row ").append(row).append(": ").append("ClientId and ClientSkuId combination already exists.\n");
             } else {
                 // add
                 ProductPojo addedPojo = productDao.add(productPojo);
@@ -54,7 +53,7 @@ public class ProductService {
 
     @Transactional(rollbackFor = ApiException.class)
     public ProductPojo update(ProductPojo productPojo) throws ApiException {
-        ProductPojo existingPojo = productDao.getByGlobalSkuId(productPojo.getGlobalSkuId());
+        ProductPojo existingPojo = getByGlobalSkuId(productPojo.getGlobalSkuId());
         if (existingPojo == null) {
             throw new ApiException("Product doesn't exists");
         }

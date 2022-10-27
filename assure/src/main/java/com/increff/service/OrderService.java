@@ -42,8 +42,8 @@ public class OrderService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Value("channel.Uri")
-    private String channelBaseUri;
+    @Value("${channel.Uri}")
+    public String channelBaseUri;
 
     public void validate(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList, List<String> channelSkuIds, String channelName) throws ApiException {
         ChannelPojo channelPojo = channelService.getByName(channelName);

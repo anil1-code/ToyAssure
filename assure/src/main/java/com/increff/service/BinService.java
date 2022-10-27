@@ -1,9 +1,8 @@
 package com.increff.service;
 
 import com.increff.dao.BinDao;
-import com.increff.pojo.BinPojo;
-import com.increff.pojo.BinSkuPojo;
-import com.increff.pojo.InventoryPojo;
+import com.increff.pojo.*;
+import com.increff.util.UserType;
 import exception.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,8 @@ public class BinService {
     private BinDao binDao;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public List<BinPojo> add(Long binCount) {
@@ -33,7 +34,11 @@ public class BinService {
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public List<BinSkuPojo> addInventory(List<BinSkuPojo> binSkuPojoList) throws ApiException {
+    public List<BinSkuPojo> addInventory(Long clientId, List<BinSkuPojo> binSkuPojoList, List<String> clientSkuIds) throws ApiException {
+        UserPojo userPojo = userService.getById(clientId);
+        if (userPojo == null || userPojo.getType() != UserType.CLIENT) {
+            throw new ApiException("No Client exists with given ID: " + clientId);
+        }
         List<BinSkuPojo> addedPojoList = new ArrayList<>();
         StringBuilder errorMsg = new StringBuilder();
         int row = 1;
@@ -42,8 +47,11 @@ public class BinService {
             if (binDao.getBinPojoById(binSkuPojo.getBinId()) == null) {
                 rowErrors.add("Bin doesn't exist");
             }
-            if (productService.getByGlobalSkuId(binSkuPojo.getGlobalSkuId()) == null) {
+            ProductPojo productPojo = productService.getByClientAndClientSkuId(clientId, clientSkuIds.get(row - 1));
+            if (productPojo == null) {
                 rowErrors.add("Product doesn't exist");
+            } else {
+                binSkuPojo.setGlobalSkuId(productPojo.getGlobalSkuId());
             }
             BinSkuPojo existingPojo = binDao.getBinSkuInsideBin(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
             Long addedQuantity = 0L;

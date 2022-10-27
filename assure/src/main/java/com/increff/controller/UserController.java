@@ -25,7 +25,7 @@ public class UserController {
         return userDto.getAll();
     }
 
-    @ApiOperation(value = "add a users")
+    @ApiOperation(value = "add a user")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public UserPojo add(@RequestBody UserForm userForm) throws ApiException {
         return userDto.add(userForm);

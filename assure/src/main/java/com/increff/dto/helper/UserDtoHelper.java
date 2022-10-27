@@ -5,6 +5,7 @@ import com.increff.model.data.UserData;
 import com.increff.model.forms.UserForm;
 import com.increff.pojo.UserPojo;
 import com.increff.util.BasicDataUtil;
+import com.increff.util.UserType;
 import exception.ApiException;
 
 import java.util.ArrayList;
@@ -39,11 +40,14 @@ public class UserDtoHelper {
     }
 
     public static void validate(UserForm userForm) throws ApiException {
+        if (userForm == null) {
+            throw new ApiException("User Form cannot be null");
+        }
         if (BasicDataUtil.isEmpty(userForm.getName())) {
-            throw new ApiException("Name cannot be empty");
+            throw new ApiException("User Name cannot be null or empty");
         }
         if (userForm.getName().length() > Const.MAX_LENGTH) {
-            throw new ApiException("Name cannot exceed " + Const.MAX_LENGTH + " chars");
+            throw new ApiException("User Name cannot exceed " + Const.MAX_LENGTH + " chars");
         }
     }
 }

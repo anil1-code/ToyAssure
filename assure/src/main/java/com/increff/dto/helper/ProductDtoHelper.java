@@ -1,5 +1,6 @@
 package com.increff.dto.helper;
 
+import com.increff.constants.Const;
 import com.increff.model.data.ProductData;
 import com.increff.model.forms.ProductForm;
 import com.increff.pojo.ProductPojo;
@@ -33,31 +34,44 @@ public class ProductDtoHelper {
     public static void validateAndNormalise(ProductForm productForm, int row, StringBuilder errorMsg) {
         List<String> errors = new ArrayList<>();
         if (productForm == null) {
-            errors.add("Form should not be null");
+            errors.add("Form cannot be null");
         } else {
             if (BasicDataUtil.isEmpty(productForm.getBrandId())) {
-                errors.add("Brand ID should not be empty");
+                errors.add("Brand ID cannot be null or empty");
+            } else if (productForm.getBrandId().length() > Const.MAX_LENGTH) {
+                errors.add("Brand ID cannot exceed " + Const.MAX_LENGTH + " chars");
             }
+
             if (productForm.getClientId() == null) {
-                errors.add("Client ID should not be empty");
+                errors.add("Client ID cannot be null");
             }
+
             if (BasicDataUtil.isEmpty(productForm.getName())) {
-                errors.add("Product name should not be empty");
+                errors.add("Product name cannot be null or empty");
+            } else if (productForm.getName().length() > Const.MAX_LENGTH) {
+                errors.add("Product name cannot exceed " + Const.MAX_LENGTH + " chars");
             } else {
                 productForm.setName(BasicDataUtil.trimAndLowerCase(productForm.getName()));
             }
+
             if (BasicDataUtil.isEmpty(productForm.getClientSkuId())) {
-                errors.add("ClientSkuId should not be empty");
+                errors.add("ClientSkuId cannot be null or empty");
+            } else if (productForm.getClientSkuId().length() > Const.MAX_LENGTH) {
+                errors.add("ClientSkuId cannot exceed " + Const.MAX_LENGTH + " chars");
             }
+
             if (BasicDataUtil.isEmpty(productForm.getDescription())) {
-                errors.add("Product description should not be empty");
+                errors.add("Product description cannot be null or empty");
+            } else if (productForm.getDescription().length() > Const.MAX_DESCRIPTION_LENGTH) {
+                errors.add("Product description cannot exceed " + Const.MAX_DESCRIPTION_LENGTH + " chars");
             }
+
             if (productForm.getMrp() == null) { // what should be the condition on mrp
-                errors.add("Mrp should not be null");
+                errors.add("Mrp cannot be null");
             } else {
                 productForm.setMrp(BasicDataUtil.roundOffDouble(productForm.getMrp()));
                 if (productForm.getMrp() < 0) {
-                    errors.add("Mrp should be positive");
+                    errors.add("Mrp must be positive");
                 }
             }
         }

@@ -12,7 +12,6 @@ public class UIController {
 
     @RequestMapping(value = "")
     public ModelAndView index() {
-        System.out.println("I was here");
         return mav("index.html");
     }
     private ModelAndView mav(String page) {

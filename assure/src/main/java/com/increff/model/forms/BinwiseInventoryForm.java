@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class BinwiseInventoryForm {
     private Long binId;
-    private Long globalSkuId;
+    private String clientSkuId;
     private Long quantity;
 }

@@ -37,7 +37,7 @@ public class ChannelController {
         return channelDto.getAllChannels();
     }
 
-    @ApiOperation("gets all the channels")
+    @ApiOperation("gets all the channel mappings")
     @RequestMapping(value = "/mappings", method = RequestMethod.GET)
     public List<ChannelListingData> getAllChannelMappings() {
         return channelDto.getAllChannelMappings();
@@ -45,9 +45,8 @@ public class ChannelController {
 
     @ApiOperation("adds the channel id mappings")
     @RequestMapping(value = "/mappings", method = RequestMethod.POST)
-    public List<ChannelListingPojo> addChannelIDMappings(@RequestBody List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
-        return channelDto.addChannelIDMappings(channelIDMapFormList);
+    public List<ChannelListingPojo> addChannelIDMappings(@RequestBody String clientName, @RequestBody String channelName, @RequestBody List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
+        return channelDto.addChannelIDMappings(clientName, channelName, channelIDMapFormList);
     }
-
 
 }

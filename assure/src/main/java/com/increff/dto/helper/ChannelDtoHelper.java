@@ -1,5 +1,6 @@
 package com.increff.dto.helper;
 
+import com.increff.constants.Const;
 import com.increff.model.data.ChannelData;
 import com.increff.model.data.ChannelListingData;
 import com.increff.model.forms.ChannelForm;
@@ -14,28 +15,24 @@ import java.util.List;
 public class ChannelDtoHelper {
     public static void validateAndNormalize(ChannelIDMapForm channelIDMapForm, int row, StringBuilder errorMsg) {
         List<String> rowErrors = new ArrayList<>();
-        if (BasicDataUtil.isEmpty(channelIDMapForm.getChannelName())) {
-            rowErrors.add("Channel Name can't be empty");
+        if (channelIDMapForm == null) {
+            rowErrors.add("Channel Form cannot be null");
         } else {
-            channelIDMapForm.setChannelName(BasicDataUtil.trimAndLowerCase(channelIDMapForm.getChannelName()));
-        }
-        if (BasicDataUtil.isEmpty(channelIDMapForm.getClientName())) {
-            rowErrors.add("Client Name can't be empty");
-        } else {
-            channelIDMapForm.setClientName(BasicDataUtil.trimAndLowerCase(channelIDMapForm.getClientName()));
-        }
-        if (channelIDMapForm.getChannelSkuId() == null) {
-            rowErrors.add("ChannelSkuId can't be null");
-        }
-        if (channelIDMapForm.getGlobalSkuId() == null) {
-            rowErrors.add("GlobalSkuId can't be null");
+            if (BasicDataUtil.isEmpty(channelIDMapForm.getChannelSkuId())) {
+                rowErrors.add("ChannelSkuId cannot be null or empty");
+            } else if (channelIDMapForm.getChannelSkuId().length() > Const.MAX_LENGTH) {
+                rowErrors.add("ChannelSkuId cannot exceed " + Const.MAX_LENGTH + " chars");
+            }
+            if (BasicDataUtil.isEmpty(channelIDMapForm.getClientSkuId())) {
+                rowErrors.add("ClientSkuId cannot be null or empty");
+            }
         }
         if (!rowErrors.isEmpty()) {
             errorMsg.append("row ").append(row).append(": ").append(rowErrors.get(0));
             for (int i = 1; i < rowErrors.size(); i++) {
                 errorMsg.append(", ").append(rowErrors.get(i));
             }
-            errorMsg.append("\n");
+            errorMsg.append(".\n");
         }
     }
 
@@ -44,33 +41,22 @@ public class ChannelDtoHelper {
         for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
             ChannelListingPojo channelListingPojo = new ChannelListingPojo();
             channelListingPojo.setChannelSkuId(channelIDMapForm.getChannelSkuId());
-            channelListingPojo.setGlobalSkuId(channelIDMapForm.getGlobalSkuId());
             channelListingPojoList.add(channelListingPojo);
         }
         return channelListingPojoList;
     }
 
-    public static List<String> getChannelNameList(List<ChannelIDMapForm> channelIDMapFormList) {
-        List<String> channelNames = new ArrayList<>();
-        for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
-            channelNames.add(channelIDMapForm.getChannelName());
-        }
-        return channelNames;
-    }
-
-    public static List<String> getClientNameList(List<ChannelIDMapForm> channelIDMapFormList) {
-        List<String> clientNames = new ArrayList<>();
-        for (ChannelIDMapForm channelIDMapForm : channelIDMapFormList) {
-            clientNames.add(channelIDMapForm.getClientName());
-        }
-        return clientNames;
-    }
-
     public static void validateChannelForm(ChannelForm channelForm, StringBuilder errorMsg) {
-        if (BasicDataUtil.isEmpty(channelForm.getName())) {
-            errorMsg.append("Channel name cannot be empty");
+        if (channelForm == null) {
+            errorMsg.append("Channel Form cannot be null");
+            return;
         }
-        if (channelForm.getChannelType() == null) {
+        if (BasicDataUtil.isEmpty(channelForm.getName())) {
+            errorMsg.append("Channel name cannot be null or empty");
+        } else if (channelForm.getName().length() > Const.MAX_LENGTH) {
+            errorMsg.append("Channel Name cannot exceed " + Const.MAX_LENGTH + " chars");
+        }
+        if (channelForm.getInvoiceType() == null) {
             errorMsg.append(errorMsg.length() == 0 ? "" : ", ").append("Channel Type cannot be null");
         }
     }

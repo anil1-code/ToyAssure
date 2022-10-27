@@ -23,6 +23,9 @@ public class ProductDto {
     }
 
     public List<ProductPojo> add(List<ProductForm> productFormList) throws ApiException {
+        if (productFormList == null) {
+            throw new ApiException("Product List cannot be null");
+        }
         StringBuilder errorMsg = new StringBuilder();
         for (int i = 0; i < productFormList.size(); i++) {
             ProductDtoHelper.validateAndNormalise(productFormList.get(i), i + 1, errorMsg);

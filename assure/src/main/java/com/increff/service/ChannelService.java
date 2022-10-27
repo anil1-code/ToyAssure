@@ -3,6 +3,7 @@ package com.increff.service;
 import com.increff.dao.ChannelDao;
 import com.increff.pojo.ChannelListingPojo;
 import com.increff.pojo.ChannelPojo;
+import com.increff.pojo.ProductPojo;
 import com.increff.pojo.UserPojo;
 import com.increff.util.UserType;
 import exception.ApiException;
@@ -19,10 +20,13 @@ public class ChannelService {
     private ChannelDao channelDao;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductService productService;
 
     @Transactional(rollbackFor = ApiException.class)
     public ChannelPojo add(ChannelPojo channelPojo) throws ApiException {
-        if (channelDao.getByName(channelPojo.getName()) != null) {
+        ChannelPojo existingPojo = getByName(channelPojo.getName());
+        if (existingPojo != null) {
             throw new ApiException("Channel name already exists");
         }
         return channelDao.add(channelPojo);
@@ -30,29 +34,27 @@ public class ChannelService {
 
 
     @Transactional(rollbackFor = ApiException.class)
-    public List<ChannelListingPojo> addChannelIDMappings(List<ChannelListingPojo> channelListingPojoList, List<String> channelNames, List<String> clientNames) throws ApiException {
+    public List<ChannelListingPojo> addChannelIDMappings(String clientName, String channelName, List<ChannelListingPojo> channelListingPojoList, List<String> clientSkuIds) throws ApiException {
         StringBuilder errorMsg = new StringBuilder();
+        ChannelPojo channelPojo = getByName(channelName);
+        UserPojo userPojo = userService.getByNameAndType(clientName, UserType.CLIENT);
+        if (channelPojo == null) {
+            errorMsg.append("Channel does not exists.\n");
+        }
+        if (userPojo == null || userPojo.getType() != UserType.CLIENT) {
+            errorMsg.append("Client does not exists.\n");
+        }
         int i = 0;
         for (ChannelListingPojo channelListingPojo : channelListingPojoList) {
-            List<String> rowErrors = new ArrayList<>();
-            ChannelPojo channelPojo = channelDao.getByName(channelNames.get(i));
-            UserPojo userPojo = userService.getByNameAndType(clientNames.get(i), UserType.CLIENT);
-            if (channelPojo == null) {
-                rowErrors.add("Channel does not exists");
-            } else {
+            if (channelPojo != null)
                 channelListingPojo.setChannelId(channelPojo.getId());
-            }
-            if (userPojo == null) {
-                rowErrors.add("Client does not exists");
-            } else {
+            if (userPojo != null && userPojo.getType() == UserType.CLIENT)
                 channelListingPojo.setClientId(userPojo.getId());
-            }
-            if (!rowErrors.isEmpty()) {
-                errorMsg.append("row ").append(i).append(": ").append(rowErrors.get(0));
-                for (int j = 1; j < rowErrors.size(); j++) {
-                    errorMsg.append(", ").append(rowErrors.get(j));
-                }
-                errorMsg.append(".\n");
+            ProductPojo productPojo = userPojo == null ? null : productService.getByClientAndClientSkuId(userPojo.getId(), clientSkuIds.get(i));
+            if (productPojo == null) {
+                errorMsg.append("row ").append(i).append(": ").append("Product does not exists.\n");
+            } else {
+                channelListingPojo.setGlobalSkuId(productPojo.getGlobalSkuId());
             }
         }
         if (errorMsg.length() != 0)
@@ -71,23 +73,27 @@ public class ChannelService {
         return addedPojoList;
     }
 
+    @Transactional(readOnly = true)
     public ChannelPojo getByName(String channelName) {
         return channelDao.getByName(channelName);
     }
 
+    @Transactional(readOnly = true)
     public ChannelPojo getById(Long channelId) {
         return channelDao.getById(channelId);
     }
 
+    @Transactional(readOnly = true)
     public ChannelListingPojo getByClientChannelAndChannelSkuId(Long clientId, Long channelId, String channelSkuId) {
         return channelDao.getByClientChannelAndChannelSkuId(clientId, channelId, channelSkuId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ChannelPojo> getAllChannels() {
         return channelDao.getAllChannels();
     }
 
+    @Transactional(readOnly = true)
     public List<ChannelListingPojo> getAllChannelMappings() {
         return channelDao.getAllChannelMappings();
     }

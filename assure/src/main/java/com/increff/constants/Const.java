@@ -3,6 +3,7 @@ package com.increff.constants;
 public class Const {
     public final static int MAX_ROWS = 5000;
     public static final int MAX_LENGTH = 30; // While changing this, also change the maxLength attribute of the input field in frontend
+    public static final int MAX_DESCRIPTION_LENGTH = 255; // While changing this, also change the maxLength attribute of the input field in frontend
 
     public static final int MIN_YEAR = 2022;
 

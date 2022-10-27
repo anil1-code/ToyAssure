@@ -7,6 +7,7 @@ import pojo.OrderItemPojo;
 import pojo.OrderPojo;
 import util.OrderStatus;
 
+import javax.persistence.Basic;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,16 +20,22 @@ public class OrderDtoHelper {
         }
         StringBuilder errorMsg = new StringBuilder();
         List<String> errors = new ArrayList<>();
-        if (orderForm.getClientId() == null || orderForm.getClientId() <= 0) {
-            errors.add("ClientID can't be null or less than 1");
+        if (orderForm.getClientId() == null) {
+            errors.add("ClientID can't be null");
+        } else if (orderForm.getClientId() <= 0) {
+            errors.add("ClientID can't be less than 1");
         }
-        if (orderForm.getCustomerId() == null || orderForm.getCustomerId() <= 0) {
-            errors.add("CustomerID can't be null or less than 1");
+        if (orderForm.getCustomerId() == null) {
+            errors.add("CustomerID can't be null");
+        } else if (orderForm.getCustomerId() <= 0) {
+            errors.add("CustomerID can't be less than 1");
         }
         if (BasicDataUtil.isEmpty(orderForm.getChannelName())) {
             errors.add("Channel Name can't be empty");
         }
-        if (orderForm.getOrderItemList() == null || orderForm.getOrderItemList().isEmpty()) {
+        if (orderForm.getOrderItemList() == null) {
+            errors.add("OrderItem list can't be null");
+        } else if (orderForm.getOrderItemList().isEmpty()) {
             errors.add("OrderItem list can't be empty");
         }
         if (BasicDataUtil.isEmpty(orderForm.getChannelOrderId())) {
@@ -42,23 +49,27 @@ public class OrderDtoHelper {
             errorMsg.append(".\n");
         }
         errors.clear();
-        Set<String> channelIDSet = new HashSet<>();
-        int orderItem = 1;
-        for (OrderItemForm orderItemForm : orderForm.getOrderItemList()) {
-            List<String> rowErrors = validateOrderItemForm(orderItemForm);
-            if (channelIDSet.contains(orderItemForm.getChannelSkuId())) {
-                rowErrors.add("Duplicate channelSkuId");
-            } else {
-                channelIDSet.add(orderItemForm.getChannelSkuId());
-            }
-            if (!rowErrors.isEmpty()) {
-                errorMsg.append("Order Item ").append(orderItem).append(": ").append(rowErrors.get(0));
-                for (int i = 1; i < rowErrors.size(); i++) {
-                    errorMsg.append(", ").append(rowErrors.get(i));
+        if (orderForm.getOrderItemList() != null) {
+            Set<String> channelIDSet = new HashSet<>();
+            int orderItem = 1;
+            for (OrderItemForm orderItemForm : orderForm.getOrderItemList()) {
+                List<String> rowErrors = validateOrderItemForm(orderItemForm);
+                if (orderItemForm != null) {
+                    if (channelIDSet.contains(orderItemForm.getChannelSkuId())) {
+                        rowErrors.add("Duplicate channelSkuId");
+                    } else {
+                        channelIDSet.add(orderItemForm.getChannelSkuId());
+                    }
                 }
-                errorMsg.append(".\n");
+                if (!rowErrors.isEmpty()) {
+                    errorMsg.append("Order Item ").append(orderItem).append(": ").append(rowErrors.get(0));
+                    for (int i = 1; i < rowErrors.size(); i++) {
+                        errorMsg.append(", ").append(rowErrors.get(i));
+                    }
+                    errorMsg.append(".\n");
+                }
+                orderItem++;
             }
-            orderItem++;
         }
         return errorMsg.toString();
     }
@@ -69,11 +80,13 @@ public class OrderDtoHelper {
             errors.add("OrderItem can't be null");
             return errors;
         }
-        if (orderItemForm.getOrderedQuantity() == null || orderItemForm.getOrderedQuantity() < 1) {
-            errors.add("quantity can't be null or less than 1");
+        if (orderItemForm.getOrderedQuantity() == null) {
+            errors.add("quantity can't be null");
+        } else if (orderItemForm.getOrderedQuantity() < 1) {
+            errors.add("quantity can't be less than 1");
         }
-        if (orderItemForm.getChannelSkuId() == null) {
-            errors.add("ClientSkuId can't be null or less than 1");
+        if (BasicDataUtil.isEmpty(orderItemForm.getChannelSkuId())) {
+            errors.add("ChannelSkuId can't be null or empty");
         }
         if (orderItemForm.getSellingPricePerUnit() == null) {
             errors.add("Selling Price can't be null");
@@ -100,13 +113,16 @@ public class OrderDtoHelper {
 
     public static String validateIdAndStatus(Long id, OrderStatus orderStatus) {
         StringBuilder errorMsg = new StringBuilder();
-        if (id == null || id <= 0) {
-            errorMsg.append("Id can't be null or less than 1");
+        if (id == null) {
+            errorMsg.append("Id can't be null");
+        } else if (id <= 0) {
+            errorMsg.append("Id can't be less than 1");
         }
         if (orderStatus != OrderStatus.ALLOCATED && orderStatus != OrderStatus.FULFILLED) {
             if (errorMsg.length() != 0) errorMsg.append(", ");
             errorMsg.append("OrderStatus has to be either allocated or fulfilled");
         }
+        if (errorMsg.length() != 0) errorMsg.append(".\n");
         return errorMsg.toString();
     }
 }
