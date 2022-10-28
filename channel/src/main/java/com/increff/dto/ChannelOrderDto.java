@@ -3,7 +3,6 @@ package com.increff.dto;
 import exception.ApiException;
 import model.data.InvoiceData;
 import model.form.OrderForm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
@@ -16,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class ChannelOrderDto {
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Value("${server.Uri}")
     private String serverUri;

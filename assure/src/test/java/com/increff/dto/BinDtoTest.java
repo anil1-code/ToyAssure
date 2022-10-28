@@ -89,7 +89,12 @@ public class BinDtoTest extends AbstractUnitTest {
         inventoryForm.setClientSkuId(productPojo.getClientSkuId());
         inventoryForm.setBinId(binPojo.getId());
         inventoryForm.setQuantity(1L);
-        binDto.addInventory(1L, List.of(inventoryForm));
+        binDto.addInventory(userPojo.getId(), List.of(inventoryForm));
+        BinwiseInventoryForm updateInventoryForm = new BinwiseInventoryForm();
+        updateInventoryForm.setClientSkuId(productPojo.getClientSkuId());
+        updateInventoryForm.setBinId(binPojo.getId());
+        updateInventoryForm.setQuantity(2L);
+        binDto.addInventory(userPojo.getId(), List.of(inventoryForm));
     }
 
 }

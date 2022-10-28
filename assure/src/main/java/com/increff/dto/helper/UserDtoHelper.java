@@ -5,7 +5,6 @@ import com.increff.model.data.UserData;
 import com.increff.model.forms.UserForm;
 import com.increff.pojo.UserPojo;
 import com.increff.util.BasicDataUtil;
-import com.increff.util.UserType;
 import exception.ApiException;
 
 import java.util.ArrayList;

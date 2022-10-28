@@ -79,7 +79,8 @@ public class OrderService {
         for (OrderItemPojo orderItemPojo : orderItemPojoList) {
             ChannelListingPojo channelListingPojo = null;
             if (clientPojo != null && channelPojo != null) {
-                if (Objects.equals(channelPojo.getName(), "INTERNAL")) {
+                if (Objects.equals(channelPojo.getName(), "internal")) {
+                    // In case of internal orders channelSkuID will be same as clientSkuID
                     ProductPojo productPojo = productService.getByClientAndClientSkuId(clientPojo.getId(), channelSkuIds.get(orderItem - 1));
                     if (productPojo != null) {
                         channelListingPojo = new ChannelListingPojo();
@@ -131,7 +132,8 @@ public class OrderService {
             if (!Objects.equals(orderItemPojo.getAllocatedQuantity(), orderItemPojo.getOrderedQuantity())) {
                 successful = false;
             }
-            binService.allocateInventory(orderItemPojo.getGlobalSkuId(), allocated);
+            if (allocated > 0)
+                binService.allocateInventory(orderItemPojo.getGlobalSkuId(), allocated);
         }
         if (successful) orderPojo.setOrderStatus(OrderStatus.ALLOCATED);
         return orderPojo;

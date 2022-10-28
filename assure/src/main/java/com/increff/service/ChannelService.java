@@ -52,7 +52,7 @@ public class ChannelService {
                 channelListingPojo.setClientId(userPojo.getId());
             ProductPojo productPojo = userPojo == null ? null : productService.getByClientAndClientSkuId(userPojo.getId(), clientSkuIds.get(i));
             if (productPojo == null) {
-                errorMsg.append("row ").append(i).append(": ").append("Product does not exists.\n");
+                errorMsg.append("row ").append(i + 1).append(": ").append("Product does not exists.\n");
             } else {
                 channelListingPojo.setGlobalSkuId(productPojo.getGlobalSkuId());
             }
@@ -73,7 +73,7 @@ public class ChannelService {
         return addedPojoList;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ChannelPojo getByName(String channelName) {
         return channelDao.getByName(channelName);
     }

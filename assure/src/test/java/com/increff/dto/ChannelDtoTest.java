@@ -8,9 +8,11 @@ import com.increff.model.forms.ChannelForm;
 import com.increff.model.forms.ChannelIDMapForm;
 import com.increff.model.forms.ProductForm;
 import com.increff.model.forms.UserForm;
+import com.increff.pojo.ChannelListingPojo;
 import com.increff.pojo.ChannelPojo;
 import com.increff.pojo.ProductPojo;
 import com.increff.pojo.UserPojo;
+import com.increff.service.ChannelService;
 import com.increff.util.InvoiceType;
 import com.increff.util.UserType;
 import exception.ApiException;
@@ -30,6 +32,8 @@ public class ChannelDtoTest extends AbstractUnitTest {
     private ProductDto productDto;
     @Autowired
     private UserDto userDto;
+    @Autowired
+    private ChannelService channelService;
 
     @Test
     public void addTestNullForm() {
@@ -154,6 +158,31 @@ public class ChannelDtoTest extends AbstractUnitTest {
         Assert.assertEquals(channelListingDataList.get(0).getChannelSkuId(), "sku");
         Assert.assertEquals(channelListingDataList.get(0).getClientId(), userPojo.getId());
         Assert.assertEquals(channelListingDataList.get(0).getGlobalSkuId(), productPojo.getGlobalSkuId());
+
+
+        ChannelIDMapForm updateIdForm = new ChannelIDMapForm();
+        updateIdForm.setChannelSkuId("updated_sku");
+        updateIdForm.setClientSkuId(productPojo.getClientSkuId());
+        channelDto.addChannelIDMappings(userPojo.getName(), channelPojo.getName(), List.of(updateIdForm));
+
+        channelListingDataList = channelDto.getAllChannelMappings();
+        Assert.assertNotEquals(channelListingDataList, null);
+        Assert.assertEquals(channelListingDataList.size(), 1);
+        Assert.assertEquals(channelListingDataList.get(0).getChannelId(), channelPojo.getId());
+        Assert.assertEquals(channelListingDataList.get(0).getChannelSkuId(), "updated_sku");
+        Assert.assertEquals(channelListingDataList.get(0).getClientId(), userPojo.getId());
+        Assert.assertEquals(channelListingDataList.get(0).getGlobalSkuId(), productPojo.getGlobalSkuId());
+
+        ChannelPojo retrievedChannel = channelService.getById(channelPojo.getId());
+        Assert.assertNotEquals(retrievedChannel, null);
+        Assert.assertEquals(retrievedChannel.getName(), "c");
+        Assert.assertEquals(retrievedChannel.getInvoiceType(), InvoiceType.CHANNEL);
+        ChannelListingPojo retrievedChannelListing = channelService.getByClientChannelAndChannelSkuId(userPojo.getId(), channelPojo.getId(), "updated_sku");
+        Assert.assertNotEquals(retrievedChannelListing, null);
+        Assert.assertEquals(retrievedChannelListing.getChannelId(), channelPojo.getId());
+        Assert.assertEquals(retrievedChannelListing.getChannelSkuId(), "updated_sku");
+        Assert.assertEquals(retrievedChannelListing.getClientId(), userPojo.getId());
+        Assert.assertEquals(retrievedChannelListing.getGlobalSkuId(), productPojo.getGlobalSkuId());
     }
 
     private UserPojo createUser() throws ApiException {

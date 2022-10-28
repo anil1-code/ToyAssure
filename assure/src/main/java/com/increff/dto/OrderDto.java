@@ -40,8 +40,8 @@ public class OrderDto {
     }
 
     public byte[] generateInvoice(Long id) throws ApiException {
-        if (id == null || id <= 0) {
-            throw new ApiException("Order ID can't be null or less than 1");
+        if (id == null) {
+            throw new ApiException("Order ID cannot be null");
         }
         return orderService.generateInvoice(id);
     }

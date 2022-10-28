@@ -53,28 +53,6 @@ public class BinService {
             } else {
                 binSkuPojo.setGlobalSkuId(productPojo.getGlobalSkuId());
             }
-            BinSkuPojo existingPojo = binDao.getBinSkuInsideBin(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
-            Long addedQuantity = 0L;
-            if (existingPojo == null) {
-                BinSkuPojo addedPojo = binDao.addBinSkuPojo(binSkuPojo);
-                addedPojoList.add(addedPojo);
-                addedQuantity += binSkuPojo.getQuantity();
-            } else {
-                addedQuantity += binSkuPojo.getQuantity() - existingPojo.getQuantity();
-                existingPojo.setQuantity(binSkuPojo.getQuantity());
-                addedPojoList.add(existingPojo);
-            }
-            InventoryPojo existingInventoryPojo = binDao.getInventoryPojoByGlobalSkuId(binSkuPojo.getGlobalSkuId());
-            if (existingInventoryPojo == null) {
-                InventoryPojo inventoryPojo = new InventoryPojo();
-                inventoryPojo.setAllocatedQuantity(0L);
-                inventoryPojo.setFulfilledQuantity(0L);
-                inventoryPojo.setAvailableQuantity(addedQuantity);
-                inventoryPojo.setGlobalSkuId(binSkuPojo.getGlobalSkuId());
-                binDao.addInventoryPojo(inventoryPojo);
-            } else {
-                existingInventoryPojo.setAvailableQuantity(existingInventoryPojo.getAvailableQuantity() + addedQuantity);
-            }
             if (!rowErrors.isEmpty()) {
                 errorMsg.append("row ").append(row).append(": ").append(rowErrors.get(0));
                 for (int i = 1; i < rowErrors.size(); i++) {
@@ -82,6 +60,29 @@ public class BinService {
                     errorMsg.append(rowErrors.get(i));
                 }
                 errorMsg.append(".\n");
+            } else {
+                BinSkuPojo existingPojo = binDao.getBinSkuInsideBin(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
+                Long addedQuantity = 0L;
+                if (existingPojo == null) {
+                    BinSkuPojo addedPojo = binDao.addBinSkuPojo(binSkuPojo);
+                    addedPojoList.add(addedPojo);
+                    addedQuantity += binSkuPojo.getQuantity();
+                } else {
+                    addedQuantity += binSkuPojo.getQuantity() - existingPojo.getQuantity();
+                    existingPojo.setQuantity(binSkuPojo.getQuantity());
+                    addedPojoList.add(existingPojo);
+                }
+                InventoryPojo existingInventoryPojo = binDao.getInventoryPojoByGlobalSkuId(binSkuPojo.getGlobalSkuId());
+                if (existingInventoryPojo == null) {
+                    InventoryPojo inventoryPojo = new InventoryPojo();
+                    inventoryPojo.setAllocatedQuantity(0L);
+                    inventoryPojo.setFulfilledQuantity(0L);
+                    inventoryPojo.setAvailableQuantity(addedQuantity);
+                    inventoryPojo.setGlobalSkuId(binSkuPojo.getGlobalSkuId());
+                    binDao.addInventoryPojo(inventoryPojo);
+                } else {
+                    existingInventoryPojo.setAvailableQuantity(existingInventoryPojo.getAvailableQuantity() + addedQuantity);
+                }
             }
             row++;
         }
