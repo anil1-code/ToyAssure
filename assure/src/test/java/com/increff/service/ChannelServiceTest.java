@@ -23,11 +23,9 @@ public class ChannelServiceTest extends AbstractUnitTest {
         channelPojo.setName("c");
         channelPojo.setInvoiceType(InvoiceType.CHANNEL);
         channelService.add(channelPojo);
-        // TODO: 28/10/22: resolve this issue
-        ChannelPojo existingPojo = channelService.getByName("c"); // removing this line breaks the code, find out why?
         ChannelPojo duplicatePojo = new ChannelPojo();
         duplicatePojo.setName("c");
-        channelPojo.setInvoiceType(InvoiceType.SELF);
+        duplicatePojo.setInvoiceType(InvoiceType.SELF);
         try {
             channelService.add(duplicatePojo);
             Assert.fail();
