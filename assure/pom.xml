@@ -40,6 +40,12 @@
                 <configuration>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <useTestClasspath>false</useTestClasspath>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>log4j.configuration</name>
+                            <value>file:./log4j.properties</value>
+                        </systemProperty>
+                    </systemProperties>
                     <httpConnector>
                         <port>${jetty.http.port}</port>
                     </httpConnector>

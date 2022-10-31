@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b476af94-ae60-4248-81c6-6b257997205c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assure/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/pojo/ChannelPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/AppRestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/AppRestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/DbConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/com/increff/spring/DbConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/test/java/com/increff/service/ChannelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/com/increff/service/ChannelServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/resources/test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/pojo/AbstractPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/pojo/AbstractPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +90,21 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.ChannelServiceTest.addDuplicateNameTest">
+    <configuration name="ChannelServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.service" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.service.ChannelServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ChannelServiceTest.addDuplicateNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
@@ -130,22 +153,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderServiceTest.createOrderTestInvalidChannelClientCustomerId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.increff.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.increff.service" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.service.OrderServiceTest" />
-      <option name="METHOD_NAME" value="createOrderTestInvalidChannelClientCustomerId" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="com.increff in assure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
@@ -188,10 +195,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ChannelServiceTest.addDuplicateNameTest" />
+        <item itemvalue="JUnit.ChannelServiceTest" />
         <item itemvalue="JUnit.com.increff in assure" />
         <item itemvalue="JUnit.OrderDtoTest.testInvalidAllocateAndFullFillAndInvoice" />
         <item itemvalue="JUnit.OrderDtoTest.createOrderTestInternalOrderAndDuplicateChannelOrderId" />
-        <item itemvalue="JUnit.OrderServiceTest.createOrderTestInvalidChannelClientCustomerId" />
       </list>
     </recent_temporary>
   </component>
@@ -205,6 +212,17 @@
       <updated>1665396913204</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -220,40 +238,20 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/channel/src/main/java/com/increff/spring/AppRestControllerAdvice.java</url>
           <line>23</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/channel/src/main/java/com/increff/spring/AppRestControllerAdvice.java</url>
           <line>24</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/channel/src/main/java/com/increff/spring/AppRestControllerAdvice.java</url>
           <line>16</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/test/java/com/increff/service/ChannelServiceTest.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/test/java/com/increff/service/ChannelServiceTest.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/com/increff/service/ChannelService.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/test/java/com/increff/service/ChannelServiceTest.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

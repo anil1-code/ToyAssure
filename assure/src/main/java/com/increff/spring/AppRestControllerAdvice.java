@@ -14,7 +14,7 @@ public class AppRestControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public MessageData handle(ApiException e) {
         MessageData data = new MessageData();
-        System.out.println(e.getMessage());
+        System.out.println(e.getMessage()); // TODO: 31/10/22 comment this before pushing
         data.setMessage(e.getMessage());
         return data;
     }

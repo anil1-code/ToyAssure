@@ -2,15 +2,18 @@ package pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 @MappedSuperclass
 public class AbstractPojo {
 
