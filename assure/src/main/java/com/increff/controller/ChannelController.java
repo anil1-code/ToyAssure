@@ -11,10 +11,7 @@ import exception.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,7 +42,7 @@ public class ChannelController {
 
     @ApiOperation("adds the channel id mappings")
     @RequestMapping(value = "/mappings", method = RequestMethod.POST)
-    public List<ChannelListingPojo> addChannelIDMappings(@RequestBody String clientName, @RequestBody String channelName, @RequestBody List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
+    public List<ChannelListingPojo> addChannelIDMappings(@RequestParam String clientName, @RequestParam String channelName, @RequestBody List<ChannelIDMapForm> channelIDMapFormList) throws ApiException {
         return channelDto.addChannelIDMappings(clientName, channelName, channelIDMapFormList);
     }
 

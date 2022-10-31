@@ -9,5 +9,5 @@ public class ChannelListingData {
     private Long channelId;
     private String channelSkuId;
     private Long clientId;
-    private Long globalSkuId;
+    private String clientSkuId;
 }

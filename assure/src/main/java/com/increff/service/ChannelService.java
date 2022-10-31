@@ -94,7 +94,12 @@ public class ChannelService {
     }
 
     @Transactional(readOnly = true)
-    public List<ChannelListingPojo> getAllChannelMappings() {
-        return channelDao.getAllChannelMappings();
+    public List<ChannelListingPojo> getAllChannelMappings(List<String> clientSkuIds) {
+        List<ChannelListingPojo> channelListingPojoList = channelDao.getAllChannelMappings();
+        for (ChannelListingPojo channelListingPojo : channelListingPojoList) {
+            ProductPojo productPojo = productService.getByGlobalSkuId(channelListingPojo.getGlobalSkuId());
+            clientSkuIds.add(productPojo.getClientSkuId());
+        }
+        return channelListingPojoList;
     }
 }

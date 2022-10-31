@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-@ToString
 @MappedSuperclass
 public class AbstractPojo {
 

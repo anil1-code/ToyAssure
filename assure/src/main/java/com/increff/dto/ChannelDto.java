@@ -75,7 +75,8 @@ public class ChannelDto {
     }
 
     public List<ChannelListingData> getAllChannelMappings() {
-        List<ChannelListingPojo> channelListingPojoList = channelService.getAllChannelMappings();
-        return ChannelDtoHelper.convertToChannelListingDataList(channelListingPojoList);
+        List<String> clientSkuIds = new ArrayList<>();
+        List<ChannelListingPojo> channelListingPojoList = channelService.getAllChannelMappings(clientSkuIds);
+        return ChannelDtoHelper.convertToChannelListingDataList(channelListingPojoList, clientSkuIds);
     }
 }

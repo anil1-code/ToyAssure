@@ -60,9 +60,7 @@ public class ProductDtoHelper {
                 errors.add("ClientSkuId cannot exceed " + Const.MAX_LENGTH + " chars");
             }
 
-            if (BasicDataUtil.isEmpty(productForm.getDescription())) {
-                errors.add("Product description cannot be null or empty");
-            } else if (productForm.getDescription().length() > Const.MAX_DESCRIPTION_LENGTH) {
+            if (productForm.getDescription() != null && productForm.getDescription().length() > Const.MAX_DESCRIPTION_LENGTH) {
                 errors.add("Product description cannot exceed " + Const.MAX_DESCRIPTION_LENGTH + " chars");
             }
 

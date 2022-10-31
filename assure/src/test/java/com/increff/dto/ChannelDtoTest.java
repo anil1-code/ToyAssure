@@ -157,7 +157,7 @@ public class ChannelDtoTest extends AbstractUnitTest {
         Assert.assertEquals(channelListingDataList.get(0).getChannelId(), channelPojo.getId());
         Assert.assertEquals(channelListingDataList.get(0).getChannelSkuId(), "sku");
         Assert.assertEquals(channelListingDataList.get(0).getClientId(), userPojo.getId());
-        Assert.assertEquals(channelListingDataList.get(0).getGlobalSkuId(), productPojo.getGlobalSkuId());
+        Assert.assertEquals(channelListingDataList.get(0).getClientSkuId(), productPojo.getClientSkuId());
 
 
         ChannelIDMapForm updateIdForm = new ChannelIDMapForm();
@@ -171,7 +171,7 @@ public class ChannelDtoTest extends AbstractUnitTest {
         Assert.assertEquals(channelListingDataList.get(0).getChannelId(), channelPojo.getId());
         Assert.assertEquals(channelListingDataList.get(0).getChannelSkuId(), "updated_sku");
         Assert.assertEquals(channelListingDataList.get(0).getClientId(), userPojo.getId());
-        Assert.assertEquals(channelListingDataList.get(0).getGlobalSkuId(), productPojo.getGlobalSkuId());
+        Assert.assertEquals(channelListingDataList.get(0).getClientSkuId(), productPojo.getClientSkuId());
 
         ChannelPojo retrievedChannel = channelService.getById(channelPojo.getId());
         Assert.assertNotEquals(retrievedChannel, null);

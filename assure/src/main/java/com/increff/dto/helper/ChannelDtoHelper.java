@@ -77,19 +77,20 @@ public class ChannelDtoHelper {
         return channelData;
     }
 
-    private static ChannelListingData convertToChannelListingData(ChannelListingPojo channelListingPojo) {
+    private static ChannelListingData convertToChannelListingData(ChannelListingPojo channelListingPojo, String clientSkuId) {
         ChannelListingData channelListingData = new ChannelListingData();
         channelListingData.setChannelId(channelListingPojo.getChannelId());
         channelListingData.setChannelSkuId(channelListingPojo.getChannelSkuId());
-        channelListingData.setGlobalSkuId(channelListingPojo.getGlobalSkuId());
+        channelListingData.setClientSkuId(clientSkuId);
         channelListingData.setClientId(channelListingPojo.getClientId());
         return channelListingData;
     }
 
-    public static List<ChannelListingData> convertToChannelListingDataList(List<ChannelListingPojo> channelListingPojoList) {
+    public static List<ChannelListingData> convertToChannelListingDataList(List<ChannelListingPojo> channelListingPojoList, List<String> clientSkuIds) {
         List<ChannelListingData> channelListingDataList = new ArrayList<>();
+        int i = 0;
         for (ChannelListingPojo channelListingPojo : channelListingPojoList) {
-            channelListingDataList.add(convertToChannelListingData(channelListingPojo));
+            channelListingDataList.add(convertToChannelListingData(channelListingPojo, clientSkuIds.get(i++)));
         }
         return channelListingDataList;
     }

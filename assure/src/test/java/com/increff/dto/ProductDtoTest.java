@@ -50,7 +50,7 @@ public class ProductDtoTest extends AbstractUnitTest {
             productDto.add(productFormList);
             Assert.fail();
         } catch (ApiException e) {
-            Assert.assertEquals(e.getMessage(), "row 1: Form cannot be null.\nrow 2: Brand ID cannot be null or empty, Client ID cannot be null, Product name cannot be null or empty, ClientSkuId cannot be null or empty, Product description cannot be null or empty, Mrp cannot be null.\n");
+            Assert.assertEquals(e.getMessage(), "row 1: Form cannot be null.\nrow 2: Brand ID cannot be null or empty, Client ID cannot be null, Product name cannot be null or empty, ClientSkuId cannot be null or empty, Mrp cannot be null.\n");
         }
     }
 
@@ -69,7 +69,7 @@ public class ProductDtoTest extends AbstractUnitTest {
             productDto.add(productFormList);
             Assert.fail();
         } catch (ApiException e) {
-            Assert.assertEquals(e.getMessage(), "row 1: Brand ID cannot be null or empty, Client ID cannot be null, Product name cannot be null or empty, ClientSkuId cannot be null or empty, Product description cannot be null or empty, Mrp must be positive.\n");
+            Assert.assertEquals(e.getMessage(), "row 1: Brand ID cannot be null or empty, Client ID cannot be null, Product name cannot be null or empty, ClientSkuId cannot be null or empty, Mrp must be positive.\n");
         }
     }
 
